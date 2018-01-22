@@ -76,7 +76,6 @@ public class RegisterController extends CommonController {
             return mv;
         }
 
-        boolean isSuccess = false;
         try {
             registerService.storeUser(userDto);
         } catch (Exception e) {
