@@ -1,0 +1,23 @@
+<div class="container">
+<table class="table table-striped" th:if="${not #lists.isEmpty(listElement)}">
+    <thead>
+      <tr>
+        <th>UserName</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="element : ${listElement}">
+        <td >
+<!--         	<a th:href="@{${commonUrl.URL_ADMIN_USER_EDIT}(userName=${element.userName})}"> -->
+			<a th:href="@{admin/users/edit(userName=${element.userName})}">	
+				<span th:text="${element.userName}"></span>
+			</a>
+		</td>
+        <td th:text="${element.firstName}"></td>
+        <td th:text="${element.lastName}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

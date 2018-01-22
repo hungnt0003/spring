@@ -1,0 +1,78 @@
+<!--/* --------------------------------------------------
+ + 【機 能】共通テンプレート
+ + 【役 割】------
+-------------------------------------------------- */-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
+
+<head>
+<!--/* 共通 Meta */-->
+<link
+	th:substituteby="common/common_meta :: common_meta"></link>
+<!--/* 共通 */-->
+<link th:substituteby="common/link_common_resource :: common_resource"></link>
+</head>
+
+<body>
+	<div th:if="${loaderWrapper != null}" th:replace="${loaderWrapper}"></div>
+	
+		<!--/* Header */-->
+		<link th:substituteby="common/common_header :: common_header"></link>
+
+		<!--/* Article */-->
+<!-- 		<article class="article" -->
+<!-- 			th:with="t3a=${@t3a}, t3r=${@t3r}, -->
+<!-- 			masterUrl=${T(jp.co.msr.t3.web.constants.urls.MasterUrlConstants)}, -->
+<!-- 			authUrl=${T(jp.co.msr.t3.web.constants.urls.AuthUrlConstants)}, -->
+<!-- 			systemUrl=${T(jp.co.msr.t3.web.constants.urls.SystemUrlConstants)}, -->
+<!-- 			commonUrl=${T(jp.co.msr.t3.web.constants.urls.CommonUrlConstants)}, -->
+<!-- 			workflowUrl=${T(jp.co.msr.t3.web.constants.urls.WorkFlowUrlConstants)}, -->
+<!-- 			resultUrl=${T(jp.co.msr.t3.web.constants.urls.ResultUrlConstants)}, -->
+<!-- 			monthlyUrl=${T(jp.co.msr.t3.web.constants.urls.MonthlyUrlConstants)}, -->
+<!-- 			exportUrl=${T(jp.co.msr.t3.web.constants.urls.ExportUrlConstatnts)}, -->
+<!-- 			laborUrl=${T(jp.co.msr.t3.web.constants.urls.LaborUrlConstants)}, -->
+<!-- 			shiftUrl=${T(jp.co.msr.t3.web.constants.urls.ShiftUrlConstants)}, -->
+<!-- 			infoUrl=${T(jp.co.msr.t3.web.constants.urls.InfoUrlConstants)}, -->
+<!-- 			logUrl=${T(jp.co.msr.t3.web.constants.urls.LogUrlConstants)}, -->
+<!-- 			regulationUrl=${T(jp.co.msr.t3.web.constants.urls.RegulationUrlConstants)}, -->
+<!-- 			mailUrl=${T(jp.co.msr.t3.web.constants.urls.MailUrlConstants)}, -->
+<!-- 			costUrl=${T(jp.co.msr.t3.web.constants.urls.CostUrlConstants)}"> -->
+
+			<!--/* 検索 */-->
+<!-- 			<div th:if="${searchContent != null}" class="searchcontent"> -->
+<!-- 				<div th:replace="${searchContent}"></div> -->
+<!-- 			</div> -->
+
+			<!--/* Title Bar */-->
+<!-- 			<section class="titlebar noreturn"> -->
+<!-- 				<h2 class="screenTitle" th:text="${screentitle}">個人マスタ管理</h2> -->
+<!-- 			</section> -->
+
+			<!--/* Main content */-->
+<!-- 			<div> -->
+<!-- 				<section class="body"> -->
+<!-- 					<div class="maincontent row"> -->
+
+		<div th:if="${mainContent != null}" th:replace="${mainContent}"></div>
+
+<!-- 					</div> -->
+<!-- 				</section> -->
+<!-- 			</div> -->
+
+			<!--/* BatchProgressBar */-->
+<!-- 			<div th:substituteby="common/common_batch_progress_viewer :: common_batch_progress_viewer"></div> -->
+
+<!-- 		</article> -->
+
+		<!--/* Footer */-->
+		<link th:substituteby="common/common_footer :: common_footer"></link>
+
+		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+			/*]]>*/
+		</script>
+
+</body>
+</html>

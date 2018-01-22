@@ -1,0 +1,11 @@
+<section th:fragment="common_content" th:remove="tag">
+	<div class="container">
+		<div class="row">
+			<!--/* Content Left */-->
+			<link th:substituteby="common/common_contentLeft :: common_contentLeft"></link>
+		
+			<!--/* Content Right */-->
+			<link th:substituteby="common/common_contentRight :: common_contentRight"></link>
+		</div>
+	</div>
+</section>
