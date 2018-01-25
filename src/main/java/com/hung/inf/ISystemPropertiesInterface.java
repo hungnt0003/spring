@@ -1,7 +1,8 @@
-package com.hung.service;
+package com.hung.inf;
+
+import java.util.List;
 
 import com.hung.dto.SystemPropertiesDto;
-import com.hung.dto.UserDto;
 
 /**
  * クラスタイトル(ピリオド削除厳禁).
@@ -14,9 +15,9 @@ import com.hung.dto.UserDto;
  * @version X.X
  * @since TIME-3 X.X
  */
-public interface IRegisterService {
+public interface ISystemPropertiesInterface {
 
-    void storeUser(UserDto userDto);
+    List<SystemPropertiesDto> getSystemProperties();
 
     SystemPropertiesDto getSystemPropertie(String systemName);
 }

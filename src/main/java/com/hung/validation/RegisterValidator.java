@@ -38,6 +38,14 @@ public class RegisterValidator extends CommonValidator implements Validator {
                 isHalfAlpha(errors, "userName", userName);
             }
         }
+
+        if (userDto.getImgFile() != null) {
+            if ("png".equalsIgnoreCase(userDto.getImgFile().getContentType())) {
+                if (userDto.getImgFile().getSize() > 0) {
+
+                }
+            }
+        }
     }
 
     @Override

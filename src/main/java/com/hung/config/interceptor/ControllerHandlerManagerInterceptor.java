@@ -40,12 +40,12 @@ public class ControllerHandlerManagerInterceptor extends HandlerInterceptorAdapt
         // response.sendRedirect("/Spring1/hello");
         // }
 
-        long startTime = System.currentTimeMillis();
-        System.out.println("\n-------- LogInterception.preHandle --- ");
-        System.out.println("Request URL: " + request.getRequestURL());
-        System.out.println("Start Time: " + System.currentTimeMillis());
-
-        request.setAttribute("startTime", startTime);
+        // long startTime = System.currentTimeMillis();
+        // System.out.println("\n-------- LogInterception.preHandle --- ");
+        // System.out.println("Request URL: " + request.getRequestURL());
+        // System.out.println("Start Time: " + System.currentTimeMillis());
+        //
+        // request.setAttribute("startTime", startTime);
 
         return true;
     }
@@ -64,8 +64,8 @@ public class ControllerHandlerManagerInterceptor extends HandlerInterceptorAdapt
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-        System.out.println("\n-------- LogInterception.postHandle --- ");
-        System.out.println("Request URL: " + request.getRequestURL());
+        // System.out.println("\n-------- LogInterception.postHandle --- ");
+        // System.out.println("Request URL: " + request.getRequestURL());
 
         // Ở đây, bạn có thể add các attribute vào modelAndView
         // Và sử dụng nó trong các View (jsp,..)
@@ -85,13 +85,13 @@ public class ControllerHandlerManagerInterceptor extends HandlerInterceptorAdapt
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        System.out.println("\n-------- LogInterception.afterCompletion --- ");
-
-        long startTime = (Long) request.getAttribute("startTime");
-        long endTime = System.currentTimeMillis();
-        System.out.println("Request URL: " + request.getRequestURL());
-        System.out.println("End Time: " + endTime);
-
-        System.out.println("Time Taken: " + (endTime - startTime));
+        // System.out.println("\n-------- LogInterception.afterCompletion --- ");
+        //
+        // long startTime = (Long) request.getAttribute("startTime");
+        // long endTime = System.currentTimeMillis();
+        // System.out.println("Request URL: " + request.getRequestURL());
+        // System.out.println("End Time: " + endTime);
+        //
+        // System.out.println("Time Taken: " + (endTime - startTime));
     }
 }

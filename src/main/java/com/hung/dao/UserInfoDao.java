@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hung.common.SqlQueryDefineIf;
@@ -26,7 +26,7 @@ import com.hung.dto.UserDto;
  * @version X.X
  * @since TIME-3 X.X
  */
-@Service
+@Repository
 @Transactional
 public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
 

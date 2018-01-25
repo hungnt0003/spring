@@ -1,5 +1,11 @@
 package com.hung.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,13 +14,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hung.common.CommonController;
 import com.hung.common.CommonModelAndView;
 import com.hung.common.constants.UrlConstants;
+import com.hung.common.utils.CommonObjectUtils;
 import com.hung.common.utils.CommonStringUtils;
+import com.hung.dto.SystemPropertiesDto;
 import com.hung.dto.UserDto;
 import com.hung.service.IRegisterService;
 import com.hung.validation.RegisterValidator;
@@ -56,8 +65,8 @@ public class RegisterController extends CommonController {
         return new CommonModelAndView();
     }
 
-    @RequestMapping(value = UrlConstants.URL_REGISTER_STORE, method = RequestMethod.POST)
-    public ModelAndView store(Model model, final RedirectAttributes redirectAttributes,
+    @RequestMapping(value = "/" + UrlConstants.URL_REGISTER_STORE, method = RequestMethod.POST)
+    public ModelAndView store(HttpServletRequest request, Model model, final RedirectAttributes redirectAttributes,
             @ModelAttribute(ELEMENT_KEY) @Validated UserDto userDto, BindingResult bindingResult) {
 
         CommonModelAndView mv = new CommonModelAndView();
@@ -84,5 +93,42 @@ public class RegisterController extends CommonController {
         model.addAttribute("mainContent", "screens/register/register");
         model.addAttribute(ELEMENT_KEY, userDto);
         return new CommonModelAndView();
+    }
+
+    private void doUpload(HttpServletRequest request, Model model, //
+            MultipartFile fileData) {
+
+        if (CommonObjectUtils.isNullOrEmpty(fileData)) {
+            return;
+        }
+
+        // Thư mục gốc upload file.
+        SystemPropertiesDto uploadRootPath = registerService.getSystemPropertie("IMG_ROOT_AVARTA_PATH");
+        SystemPropertiesDto uploadRootThumbPath = registerService.getSystemPropertie("IMG_ROOT_AVARTA_THUMB_PATH");
+
+        File uploadRootDir = new File(uploadRootPath.getSysValue());
+        // Tạo thư mục gốc upload nếu nó không tồn tại.
+        if (!uploadRootDir.exists()) {
+            uploadRootDir.mkdirs();
+        }
+
+        // Tên file gốc tại Client.
+        String name = fileData.getOriginalFilename();
+        System.out.println("Client File Name = " + name);
+
+        if (name != null && name.length() > 0) {
+            try {
+                // Tạo file tại Server.
+                File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
+
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                stream.write(fileData.getBytes());
+                stream.close();
+                // http://www.javaroots.com/2013/09/how-to-create-thumbnail-images-in-java.html
+                System.out.println("Write file: " + serverFile);
+            } catch (Exception e) {
+                System.out.println("Error Write file: " + name);
+            }
+        }
     }
 }

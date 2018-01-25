@@ -3,6 +3,8 @@ package com.hung.dto;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.hung.common.AbstractDto;
 
 /**
@@ -22,6 +24,7 @@ public class UserDto extends AbstractDto {
     private String password;
     private String passwordConfirm;
     private boolean enabled = true;
+    private MultipartFile imgFile;
     private String img;
     private String firstName;
     private String lastName;
@@ -94,6 +97,24 @@ public class UserDto extends AbstractDto {
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    /**
+     * imgFileを取得する.
+     * 
+     * @return MultipartFile imgFile
+     */
+    public MultipartFile getImgFile() {
+        return imgFile;
+    }
+
+    /**
+     * imgFileを設定する.
+     * 
+     * @param imgFile imgFile
+     */
+    public void setImgFile(MultipartFile imgFile) {
+        this.imgFile = imgFile;
     }
 
     /**
