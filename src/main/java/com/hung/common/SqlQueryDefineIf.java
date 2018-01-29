@@ -32,4 +32,29 @@ public final class SqlQueryDefineIf {
             + "where "
             + "USERNAME = ? "
             + "and STDATE = ? ";
+    
+    public static final String PRODUCT_ADD = "INSERT INTO PRODUCT(ID_PRODUCT, NAME, PRICE, ST_DATE, ID_TYPE, STATUS, IMAGE, COLOR, SALE, BRAND, ORIGIN, MADE_IN, SIZE, U_TIMESTAMP, ID_POST)"
+    		+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ";
+    
+    public static final String PRODUCT_UPDATE = "UPDATE PRODUCT"
+    		+ "set"
+    		+ "PRICE = ?"
+    		+ "ST_DATE = ?"
+    		+ "ID_TYPE = ?"
+    		+ "STATUS = ?"
+    		+ "IMAGE = ?"
+    		+ "COLOR = ?"
+    		+ "SALE = ?"
+    		+ "BRAND = ?"
+    		+ "ORIGIN = ?"
+    		+ "MADE_IN = ?"
+    		+ "SIZE = ?"
+    		+ "NAME = ?"
+    		+ "WHERE"
+    		+ "ID_PRODUCT = ?"; 
+    
+    public static final String PRODUCT_DELETE = "delete from PRODUCT "
+    		+ "WHERE"
+    		+ "ID_PRODUCT = ?";
+    
 }

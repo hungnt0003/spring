@@ -2,7 +2,7 @@ package com.hung.dto;
 
 import java.util.Date;
 
-public class ProductTypeDTO {
+public class ProductTypeDto {
 
 	private String typeId;
 	private String productId;
@@ -12,10 +12,6 @@ public class ProductTypeDTO {
 
 	public String getTypeId() {
 		return typeId;
-	}
-
-	public void setTypeId(String typeId) {
-		this.typeId = typeId;
 	}
 
 	public String getProductId() {

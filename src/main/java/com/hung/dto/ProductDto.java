@@ -2,23 +2,32 @@ package com.hung.dto;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.hung.common.AbstractDto;
-
-public class ProductDTO {
+public class ProductDto {
 
 	private String productId;
-	private String productname;
+	private String Name;
 	private String price;
 	private Date stDate;
-	// private String id_type;
+	private String idType;
+
+	public String getIdType() {
+		return idType;
+	}
+
+	public void setIdType(String id_type) {
+		this.idType = id_type;
+	}
+
 	private String status;
 	private String img;
 	private String color;
 	private String sale;
 	private String brand;
 	private String origin;
+
+	public ProductDto(String productName) {
+		this.Name = productName;
+	}
 
 	public String getProductId() {
 		return productId;
@@ -28,12 +37,12 @@ public class ProductDTO {
 		this.productId = productId;
 	}
 
-	public String getProductname() {
-		return productname;
+	public String getName() {
+		return Name;
 	}
 
-	public void setProductname(String productname) {
-		this.productname = productname;
+	public void setName(String productName) {
+		this.Name = productName;
 	}
 
 	public Date getStDate() {

@@ -23,10 +23,6 @@ public class ProductDetailSetting {
 		return typeId;
 	}
 
-	public void setTypeId(String typeId) {
-		this.typeId = typeId;
-	}
-
 	public String getName() {
 		return name;
 	}
