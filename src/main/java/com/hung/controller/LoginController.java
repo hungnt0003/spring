@@ -55,7 +55,7 @@ public class LoginController extends CommonController {
      */
     @RequestMapping(value = {"/", "welcome"}, method = RequestMethod.GET)
     public ModelAndView index(Model model, UserDto userDto) {
-        // return "forward:/" + "login";
+		// //return "forward:/" + "login";
 
 		List<ProductDTO> productDto = productService.getProduct();
 		model.addAttribute(LIST_ELEMENT_KEY, productDto);

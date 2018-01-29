@@ -21,4 +21,7 @@ public final class UrlConstants {
     public static final String URL_REGISTER = "register";
     public static final String URL_REGISTER_DETAILS = "register/details";
     public static final String URL_REGISTER_STORE = "register/store";
+
+	public static final String URL_All_PRODUCTS = "allproducts";
+
 }

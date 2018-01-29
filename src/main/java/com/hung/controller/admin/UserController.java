@@ -42,7 +42,7 @@ public class UserController extends CommonController {
     @RequestMapping(value = "/" + UrlConstants.URL_ADMIN_USER, method = RequestMethod.GET)
     public ModelAndView posts(Model model) {
 
-        model.addAttribute("loaderWrapper", "common/loader_wrapper");
+		// model.addAttribute("loaderWrapper", "common/loader_wrapper");
         model.addAttribute("mainContent", "screens/users/list");
         List<UserDto> userDtos = userService.getUsers();
         model.addAttribute(LIST_ELEMENT_KEY, userDtos);
