@@ -28,7 +28,8 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/hungnt/Downloads/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hungnt/Downloads/ojdbc14.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/setting/lib/mysql-connector-java-5.1.43.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/setting/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/setting/lib/ojdbc14.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

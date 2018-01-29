@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hung.common.CommonModelAndView;
 
+
+// test thanh
 /**
  * 
  * TestController.
