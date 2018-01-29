@@ -9,10 +9,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.social.security.SocialUserDetails;
 import org.springframework.stereotype.Service;
 
 import com.hung.dao.IUserInfoDao;
 import com.hung.dto.UserDto;
+import com.hung.dto.social.MySocialUserDetails;
 
 /**
  * クラスタイトル(ピリオド削除厳禁).
@@ -30,6 +32,17 @@ public class MyDBAuthenticationService implements UserDetailsService {
 
     @Autowired
     private IUserInfoDao userInfoDao;
+
+    /**
+     * (デフォルト)コンストラクタ(ピリオド削除厳禁).
+     * 
+     * <pre>
+     * 初期化内容, 使用例など(不要の場合は削除)
+     * </pre>
+     */
+    public MyDBAuthenticationService() {
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,9 +66,14 @@ public class MyDBAuthenticationService implements UserDetailsService {
             }
         }
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserName(),
-                user.getPassword(), grantList);
+        // UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserName(),
+        // user.getPassword(), grantList);
+        //
+        // return userDetails;
 
-        return userDetails;
+        // Chú ý: SocialUserDetails mở rộng từ interface UserDetails.
+        SocialUserDetails principal = new MySocialUserDetails(user);
+
+        return principal;
     }
 }

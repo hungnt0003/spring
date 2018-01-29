@@ -11,9 +11,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import com.hung.service.MyDBAuthenticationService;
 
@@ -60,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf();
 
         // Các trang không yêu cầu login
-        http.authorizeRequests().antMatchers("/", "/welcome", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/", "/welcome", "/login", "/logout", "/signup").permitAll();
 
         // Trang /userInfo yêu cầu phải login với vai trò USER hoặc ADMIN.
         // Nếu chưa login, nó sẽ redirect tới trang /login.
@@ -95,6 +97,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Remember me 2 weeks
         http.rememberMe().tokenRepository(persistentTokenRepository()).tokenValiditySeconds(1209600);
 
+        // Spring Social Config.
+        http.apply(new SpringSocialConfigurer())
+                //
+                .signupUrl("/signup");
     }
 
     @Bean
@@ -110,5 +116,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         SavedRequestAwareAuthenticationSuccessHandler auth = new SavedRequestAwareAuthenticationSuccessHandler();
         auth.setTargetUrlParameter("targetUrl");
         return auth;
+    }
+
+    /**
+     * This bean is load the user specific data when form login is used.
+     * 
+     * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#userDetailsService()
+     * @return
+     */
+    @Override
+    public UserDetailsService userDetailsService() {
+        return myDBAauthenticationService;
     }
 }
