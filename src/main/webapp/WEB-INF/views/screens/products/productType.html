@@ -1,0 +1,27 @@
+
+<div class="container">
+<table class="table table-striped" th:if="${not #lists.isEmpty(producttype)}">
+
+	<thead>
+      <tr>
+        <th>IdType</th>
+        <th>IdProduct</th>
+        <th>TypeName</th>
+        <th>Status</th>
+        <th>TimeStamp</th>
+      </tr>
+	</thead>
+    <tbody>
+      <tr th:each="element : ${producttype}">
+        <td >
+        	<span th:text = "${element.typeId}"></span>
+        </td>
+        <td th:text="${element.productId}"></td>
+        <td th:text="${element.typeName}"></td>
+        <td th:text="${element.status}"></td>
+        <td th:text="${element.uTimestamp}"></td>
+        </tr>
+    </tbody> 
+  </table>
+</div>
+</html>

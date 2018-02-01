@@ -2,18 +2,18 @@ package com.hung.dao;
 
 import java.util.List;
 
-import com.hung.dto.ProductDTO;
+import com.hung.dto.ProductDto;
 
 public interface IProductInfoDao {
 	
-	public ProductDTO getProduct(String productName);
+	public ProductDto getProduct(String productName);
 	
-	public List<ProductDTO> getProduct();
+	public List<ProductDto> getProduct();
 	
-	public int addProduct(ProductDTO ProductDto);
+	public int addProduct(ProductDto ProductDto);
 
-    public int editProduct(ProductDTO ProductDto);
+    public int editProduct(ProductDto ProductDto);
 
-    public int deleteProduct(ProductDTO ProductDto);
+    public int deleteProduct(ProductDto ProductDto);
 
 }
