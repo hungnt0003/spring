@@ -13,8 +13,8 @@ package com.hung.common;
  */
 public final class SqlQueryDefineIf {
 
-    public static final String USER_ADD = "INSERT INTO USERS(USERNAME, PASSWORD, IMG, FIRSTNAME, LASTNAME) "
-            + "VALUES (?, ?, ?, ?, ?)";
+    public static final String USER_ADD = "INSERT INTO USERS(USERNAME, PASSWORD, IMG, FIRSTNAME, LASTNAME, SEX, THUMB) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     public static final String USER_UPDATE = "update USERS "
             + "set "
@@ -24,12 +24,10 @@ public final class SqlQueryDefineIf {
             + "FIRSTNAME = ? "
             + "LASTNAME = ? "
             + "U_TIMESTAMP = SYSDATE "
+            + "SEX = ? "
+            + "THUMB = ? "
             + "where "
-            + "USERNAME = ? "
-            + "and STDATE = ? ";
+            + "USERNAME = ? ";
 
-    public static final String USER_DELETE = "delete from USERS "
-            + "where "
-            + "USERNAME = ? "
-            + "and STDATE = ? ";
+    public static final String USER_DELETE = "delete from USERS where USERNAME = ? ";
 }

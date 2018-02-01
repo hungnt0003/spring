@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hung.dao.mapper.SystemPropertiesMapper;
 import com.hung.dto.SystemPropertiesDto;
 
 /**
@@ -28,6 +29,12 @@ import com.hung.dto.SystemPropertiesDto;
 @Transactional
 public class SystemPropertiesDao extends JdbcDaoSupport implements ISystemPropertiesDao {
 
+    /**
+     * 
+     * Set dataSource.
+     * 
+     * @param dataSource dataSource
+     */
     @Autowired
     public SystemPropertiesDao(DataSource dataSource) {
         this.setDataSource(dataSource);
@@ -46,7 +53,7 @@ public class SystemPropertiesDao extends JdbcDaoSupport implements ISystemProper
         String sql = "Select * from SYS_PROPERTIES where SYS_NAME = ? ";
         Object[] params = new Object[] {systemName};
         SystemPropertiesDto systemPropertiesDto = this.getJdbcTemplate().queryForObject(sql, params,
-                SystemPropertiesDto.class);
+                new SystemPropertiesMapper());
         return systemPropertiesDto;
     }
 

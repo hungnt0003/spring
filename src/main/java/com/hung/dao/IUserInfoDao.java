@@ -17,18 +17,59 @@ import com.hung.dto.UserDto;
  */
 public interface IUserInfoDao {
 
+    /**
+     * 
+     * Get user info by user name.
+     * 
+     * @param userName UserName
+     * @return User info
+     */
     public UserDto getUser(String userName);
 
     // [USER,AMIN,..]
     public List<String> getUserRoles(String userName);
 
+    /**
+     * 
+     * Get all user in db.
+     * 
+     * @return List of user info
+     */
     public List<UserDto> getUsers();
 
+    /**
+     * 
+     * Get full user info(user info + rule) by user name.
+     * 
+     * @param userName userName
+     * @return user info
+     */
     public UserDto getFullUser(String userName);
 
+    /**
+     * 
+     * Add user to db.
+     * 
+     * @param userDto user info
+     * @return count row access.
+     */
     public int addUser(UserDto userDto);
 
+    /**
+     * 
+     * Change info of user by key.
+     * 
+     * @param userDto user info
+     * @return count row access.
+     */
     public int edit(UserDto userDto);
 
+    /**
+     * 
+     * Remove user to db.
+     * 
+     * @param userDto user info
+     * @return count row access.
+     */
     public int delete(UserDto userDto);
 }
