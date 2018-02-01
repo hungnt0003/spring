@@ -2,6 +2,8 @@ package com.hung.controller.admin;
 
 import org.springframework.stereotype.Controller;
 
+import com.hung.common.CommonController;
+
 /**
  * クラスタイトル(ピリオド削除厳禁).
  *
@@ -14,6 +16,6 @@ import org.springframework.stereotype.Controller;
  * @since TIME-3 X.X
  */
 @Controller
-public class PostController {
+public class PostController extends CommonController {
 
 }

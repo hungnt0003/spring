@@ -26,10 +26,10 @@ public class AdminController {
     @RequestMapping("/admin")
     public ModelAndView hello(Model model) {
 
-        model.addAttribute("loaderWrapper", "common/loader_wrapper");
-        model.addAttribute("mainContent", "screens/admin/admin");
+        // model.addAttribute("loaderWrapper", "common/loader_wrapper");
+        // model.addAttribute("mainContent", "screens/admin/admin");
 
-        return new CommonModelAndView();
+        return new ModelAndView("screens/admin/admin2");
 
     }
 
