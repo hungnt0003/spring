@@ -1,10 +1,12 @@
 package com.hung.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,23 +35,57 @@ import javassist.NotFoundException;
 @Controller
 public class UserController extends CommonController {
 
+    // ■ SessionKey
+    /** SessionKey - 一覧データ. */
+    private static final String SESSION_LIST_ELEMENT_KEY = UserController.class.getSimpleName() + "LIST";
+    /** SessionKey - 選択データ. */
+    private static final String SESSION_ELEMENT_KEY = UserController.class.getSimpleName() + "SELECTED_ITEM";
+
     /** IUserService. */
     @Autowired
     IUserService userService;
 
     private static final String SESSION_KEY_LIST = UserController.class.getSimpleName() + "LIST";
 
-    @RequestMapping(value = "/" + UrlConstants.URL_ADMIN_USER, method = RequestMethod.GET)
+    @RequestMapping(value = UrlConstants.URL_ADMIN_USER, method = RequestMethod.GET)
     public ModelAndView posts(Model model) {
 
-        model.addAttribute("loaderWrapper", "common/loader_wrapper");
-        model.addAttribute("mainContent", "screens/users/list");
-        List<UserDto> userDtos = userService.getUsers();
-        model.addAttribute(LIST_ELEMENT_KEY, userDtos);
+        clearSessionData(SESSION_LIST_ELEMENT_KEY, SESSION_ELEMENT_KEY);
+
+        List<UserDto> userDtos = new ArrayList<>();
+        try {
+            userDtos = userService.getUsers();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
         setSessionData(SESSION_KEY_LIST, userDtos);
+        model.addAttribute(LIST_ELEMENT_KEY, userDtos);
+
+        model.addAttribute("mainContent", "screens/users/user_list");
 
         return new CommonModelAndView();
+
+    }
+
+    @RequestMapping(value = UrlConstants.URL_REGISTER, method = RequestMethod.GET)
+    public CommonModelAndView register(Model model, @ModelAttribute("userName") String userName,
+            @ModelAttribute("email") String email) {
+
+        if (CommonStringUtils.isNotNullOrEmpty(userName) || CommonStringUtils.isNotNullOrEmpty(email)) {
+            UserDto userDto = new UserDto();
+            userDto.setUserName(userName);
+            userDto.setEmail(email);
+            model.addAttribute(ELEMENT_KEY, userDto);
+        }
+
+        model.addAttribute("mainContent", "screens/register/register");
+
+        return new CommonModelAndView();
+    }
+
+    @RequestMapping(value = UrlConstants.URL_ADMIN_USER_ADD, method = RequestMethod.GET)
+    public ModelAndView add(Model model) {
 
     }
 
