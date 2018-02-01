@@ -4,8 +4,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.hung.common.constants.CommonConstants;
-import com.hung.common.constants.WordConstants;
 import com.hung.common.validation.CommonValidator;
 import com.hung.dto.UserDto;
 
@@ -32,20 +30,20 @@ public class RegisterValidator extends CommonValidator implements Validator {
     protected void simpleCheck(Object target, Errors errors) {
         UserDto userDto = (UserDto) target;
         String userName = userDto.getUserName();
-        if (!isRequiredInput(errors, "userName", WordConstants.WRD_REGISTER_USERNAME, userDto.getUserName())) {
-            if (isLength(errors, "userName", WordConstants.WRD_REGISTER_USERNAME, userName,
-                    CommonConstants.MAX_USERNAME)) {
-                isHalfAlpha(errors, "userName", userName);
-            }
-        }
-
-        if (userDto.getImgFile() != null) {
-            if ("png".equalsIgnoreCase(userDto.getImgFile().getContentType())) {
-                if (userDto.getImgFile().getSize() > 0) {
-
-                }
-            }
-        }
+        // if (!isRequiredInput(errors, "userName", WordConstants.WRD_REGISTER_USERNAME, userDto.getUserName())) {
+        // if (isLength(errors, "userName", WordConstants.WRD_REGISTER_USERNAME, userName,
+        // CommonConstants.MAX_USERNAME)) {
+        // isHalfAlpha(errors, "userName", userName);
+        // }
+        // }
+        //
+        // if (userDto.getImgFile() != null) {
+        // if ("png".equalsIgnoreCase(userDto.getImgFile().getContentType())) {
+        // if (userDto.getImgFile().getSize() > 0) {
+        //
+        // }
+        // }
+        // }
     }
 
     @Override

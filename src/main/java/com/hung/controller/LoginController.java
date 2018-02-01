@@ -1,5 +1,6 @@
 package com.hung.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,14 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hung.common.CommonBaseModelAndView;
 import com.hung.common.CommonController;
 import com.hung.common.CommonModelAndView;
+import com.hung.dto.ProductDTO;
 import com.hung.dto.UserDto;
 import com.hung.service.ILoginService;
+import com.hung.service.IProductService;
 
 /**
- * 
+ *
  * [Controller] ログイン.
  *
  * @author Mitsui Zosen Systems Research Inc.
@@ -41,6 +43,9 @@ public class LoginController extends CommonController {
     @Autowired
     ILoginService loginService;
 
+	@Autowired
+	private IProductService productService;
+
     /**
      * ルートアクセス.
      *
@@ -51,9 +56,14 @@ public class LoginController extends CommonController {
     @RequestMapping(value = {"/", "welcome"}, method = RequestMethod.GET)
     public ModelAndView index(Model model, UserDto userDto) {
         // return "forward:/" + "login";
-        model.addAttribute("loaderWrapper", "common/loader_wrapper");
-        model.addAttribute("mainContent", "screens/homePage/home");
-        return new CommonBaseModelAndView();
+
+		List<ProductDTO> productDto = productService.getProduct();
+		model.addAttribute(LIST_ELEMENT_KEY, productDto);
+
+		// model.addAttribute("mainContent", "screens/homePage/home");
+		model.addAttribute("mainContent", "common/common_contentRight");
+
+		return new CommonModelAndView();
     }
 
     /**

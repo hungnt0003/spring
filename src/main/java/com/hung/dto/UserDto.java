@@ -25,7 +25,8 @@ public class UserDto extends AbstractDto {
     private String passwordConfirm;
     private boolean enabled = true;
     private MultipartFile imgFile;
-    private String img;
+    private String avartaPath;
+    private String thumbPath;
     private String firstName;
     private String lastName;
     private Date birth;
@@ -35,6 +36,7 @@ public class UserDto extends AbstractDto {
     private String role;
     private boolean rememberMe = false;
     private String email;
+    private String sex;
 
     public UserDto() {
 
@@ -118,21 +120,39 @@ public class UserDto extends AbstractDto {
     }
 
     /**
-     * imgを取得する.
+     * avartaPathを取得する.
      * 
-     * @return String img
+     * @return String avartaPath
      */
-    public String getImg() {
-        return img;
+    public String getAvartaPath() {
+        return avartaPath;
     }
 
     /**
-     * imgを設定する.
+     * avartaPathを設定する.
      * 
-     * @param img img
+     * @param avartaPath avartaPath
      */
-    public void setImg(String img) {
-        this.img = img;
+    public void setAvartaPath(String avartaPath) {
+        this.avartaPath = avartaPath;
+    }
+
+    /**
+     * thumbPathを取得する.
+     * 
+     * @return String thumbPath
+     */
+    public String getThumbPath() {
+        return thumbPath;
+    }
+
+    /**
+     * thumbPathを設定する.
+     * 
+     * @param thumbPath thumbPath
+     */
+    public void setThumbPath(String thumbPath) {
+        this.thumbPath = thumbPath;
     }
 
     /**
@@ -313,6 +333,24 @@ public class UserDto extends AbstractDto {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * sexを取得する.
+     * 
+     * @return String sex
+     */
+    public String getSex() {
+        return sex;
+    }
+
+    /**
+     * sexを設定する.
+     * 
+     * @param sex sex
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
 }

@@ -16,11 +16,7 @@ import com.hung.dao.mapper.UserMapper;
 import com.hung.dto.UserDto;
 
 /**
- * クラスタイトル(ピリオド削除厳禁).
- *
- * <pre>
- * 内容, 使用例など
- * </pre>
+ * Class progess tranfer user info with db.
  *
  * @author Mitsui Zosen Systems Research Inc.
  * @version X.X
@@ -30,11 +26,23 @@ import com.hung.dto.UserDto;
 @Transactional
 public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
 
+    /**
+     * 
+     * Init dataSource.
+     * 
+     * @param dataSource dataSource
+     */
     @Autowired
     public UserInfoDao(DataSource dataSource) {
         this.setDataSource(dataSource);
     }
 
+    /**
+     * 
+     * @see com.hung.dao.IUserInfoDao#getUser(java.lang.String)
+     * @param userName
+     * @return
+     */
     @Override
     public UserDto getUser(String userName) {
         String sql = "Select u.Username,u.Password "//
@@ -49,6 +57,12 @@ public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
         }
     }
 
+    /**
+     * 
+     * @see com.hung.dao.IUserInfoDao#getUserRoles(java.lang.String)
+     * @param userName
+     * @return
+     */
     @Override
     public List<String> getUserRoles(String userName) {
         String sql = "Select r.User_Role "//
@@ -60,6 +74,11 @@ public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
         return roles;
     }
 
+    /**
+     * 
+     * @see com.hung.dao.IUserInfoDao#getUsers()
+     * @return
+     */
     @Override
     public List<UserDto> getUsers() {
 
@@ -70,6 +89,12 @@ public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
 
     }
 
+    /**
+     * 
+     * @see com.hung.dao.IUserInfoDao#getFullUser(java.lang.String)
+     * @param userName
+     * @return
+     */
     @Override
     public UserDto getFullUser(String userName) {
         String sql = "select * from USERS u "
@@ -81,21 +106,40 @@ public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
         return user;
     }
 
+    /**
+     * 
+     * @see com.hung.dao.IUserInfoDao#addUser(com.hung.dto.UserDto)
+     * @param userDto
+     * @return
+     */
     @Override
     public int addUser(UserDto userDto) {
         String sql = SqlQueryDefineIf.USER_ADD;
         return this.getJdbcTemplate().update(sql, new Object[] {userDto.getUserName(),
-                userDto.getPassword(), userDto.getImg(), userDto.getFirstName(), userDto.getLastName()});
+                userDto.getPassword(), userDto.getAvartaPath(), userDto.getFirstName(), userDto.getLastName(),
+                userDto.getSex(), userDto.getThumbPath()});
     }
 
+    /**
+     * 
+     * @see com.hung.dao.IUserInfoDao#edit(com.hung.dto.UserDto)
+     * @param userDto
+     * @return
+     */
     @Override
     public int edit(UserDto userDto) {
         String sql = SqlQueryDefineIf.USER_UPDATE;
         return this.getJdbcTemplate().update(sql, new Object[] {userDto.getPassword(), userDto.getEnabled(),
-                userDto.getImg(), userDto.getFirstName(), userDto.getLastName(), userDto.getUserName(),
-                userDto.getStDate()});
+                userDto.getAvartaPath(), userDto.getFirstName(), userDto.getLastName(), userDto.getSex(),
+                userDto.getThumbPath(), userDto.getUserName()});
     }
 
+    /**
+     * 
+     * @see com.hung.dao.IUserInfoDao#delete(com.hung.dto.UserDto)
+     * @param userDto
+     * @return
+     */
     @Override
     public int delete(UserDto userDto) {
         String sql = SqlQueryDefineIf.USER_DELETE;

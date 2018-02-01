@@ -5,6 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import com.hung.dto.ProductDto;
 @Repository
 @Transactional
 public class ProductInfoDao extends JdbcDaoSupport implements IProductInfoDao {
-	
+
 	@Autowired
     public ProductInfoDao(DataSource dataSource) {
         this.setDataSource(dataSource);
@@ -24,14 +25,20 @@ public class ProductInfoDao extends JdbcDaoSupport implements IProductInfoDao {
 	@Override
 	public ProductDto getProduct(String productName) {
 		// TODO Auto-generated method stub
+		/*
+		 * String sql =
+		 * "select p.id_product, p.name, p.price from product p where p.name=?";
+		 */
 		return null;
 	}
 
 	@Override
 	public List<ProductDto> getProduct() {
 		// TODO Auto-generated method stub
-		
-		return null;
+		String sql = "select p.id_product, p.name, p.price from product";
+		List<ProductDto> products = this.getJdbcTemplate().query(sql, new BeanPropertyRowMapper(ProductDto.class));
+
+		return products;
 	}
 
 	@Override
@@ -51,5 +58,4 @@ public class ProductInfoDao extends JdbcDaoSupport implements IProductInfoDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }
