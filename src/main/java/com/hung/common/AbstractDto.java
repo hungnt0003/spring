@@ -11,7 +11,7 @@ package com.hung.common;
  * @version X.X
  * @since TIME-3 X.X
  */
-public class AbstractDto {
+public abstract class AbstractDto {
 
     private boolean newFlag;
 
@@ -32,4 +32,9 @@ public class AbstractDto {
     public void setNewFlag(boolean newFlag) {
         this.newFlag = newFlag;
     }
+
+    /**
+     * 初期化.
+     */
+    public abstract void init();
 }

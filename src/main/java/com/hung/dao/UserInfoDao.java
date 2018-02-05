@@ -45,8 +45,7 @@ public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
      */
     @Override
     public UserDto getUser(String userName) {
-        String sql = "Select u.Username,u.Password "//
-                + " from Users u where u.Username = ? ";
+        String sql = "Select * from Users where Username = ? ";
         Object[] params = new Object[] {userName};
         UserMapper mapper = new UserMapper();
         try {
@@ -87,23 +86,6 @@ public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
 
         return users;
 
-    }
-
-    /**
-     * 
-     * @see com.hung.dao.IUserInfoDao#getFullUser(java.lang.String)
-     * @param userName
-     * @return
-     */
-    @Override
-    public UserDto getFullUser(String userName) {
-        String sql = "select * from USERS u "
-                + "INNER JOIN USER_ROLES ur on u.USERNAME = ur.USERNAME "
-                + "where u.USERNAME = ? ";
-
-        Object[] params = new Object[] {userName};
-        UserDto user = this.getJdbcTemplate().queryForObject(sql, params, UserDto.class);
-        return user;
     }
 
     /**

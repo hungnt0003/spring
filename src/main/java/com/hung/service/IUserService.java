@@ -2,6 +2,7 @@ package com.hung.service;
 
 import java.util.List;
 
+import com.hung.common.exception.StoreException;
 import com.hung.dto.UserDto;
 
 import javassist.NotFoundException;
@@ -19,7 +20,11 @@ import javassist.NotFoundException;
  */
 public interface IUserService {
 
-    List<UserDto> getUsers();
+    List<UserDto> search();
 
-    UserDto getFullUser(String userName) throws NotFoundException;
+    UserDto getUser(String userName) throws NotFoundException;
+
+    void store(UserDto dto) throws StoreException, Exception;
+
+    void delete(UserDto dto);
 }

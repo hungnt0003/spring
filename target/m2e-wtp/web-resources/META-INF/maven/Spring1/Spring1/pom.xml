@@ -173,7 +173,7 @@
 			<version>2.4</version>
 		</dependency>
 
-<!-- 		ThumbNail -->
+		<!-- ThumbNail -->
 		<dependency>
 			<groupId>org.imgscalr</groupId>
 			<artifactId>imgscalr-lib</artifactId>

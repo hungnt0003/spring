@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.hung.common.exception.StoreException;
 import com.hung.common.utils.CommonObjectUtils;
+import com.hung.dao.IRoleDao;
 import com.hung.dao.IUserInfoDao;
+import com.hung.dto.RoleDto;
 import com.hung.dto.UserDto;
 
 /**
@@ -23,22 +26,29 @@ import com.hung.dto.UserDto;
 @Component
 public class UserInterface implements IUserInterface {
 
-    /** IUserInfoDao. */
+    /** UserInfoDao. */
     @Autowired
     private IUserInfoDao userInfoDao;
+    /** RoleDao. */
+    @Autowired
+    private IRoleDao roleDao;
 
     @Override
-    public void storeUser(UserDto userDto) {
+    public void storeUser(UserDto userDto) throws StoreException, Exception {
+
+        int result = 0;
         try {
             if (CommonObjectUtils.isNullOrEmpty(userInfoDao.getUser(userDto.getUserName()))) {
-                userInfoDao.addUser(userDto);
+                result = userInfoDao.addUser(userDto);
             } else {
-                userInfoDao.edit(userDto);
+                result = userInfoDao.edit(userDto);
             }
         } catch (Exception e) {
-            System.out.println("");
+            throw new Exception();
         }
-
+        if (result != 1) {
+            throw new StoreException();
+        }
     }
 
     @Override
@@ -56,7 +66,23 @@ public class UserInterface implements IUserInterface {
     @Override
     public UserDto getFullUser(String userName) {
         // TODO Auto-Generated Method Stub
-        return userInfoDao.getFullUser(userName);
+        UserDto userDto = userInfoDao.getUser(userName);
+        List<RoleDto> roleDtos = roleDao.getRoles(userName);
+        int role = 0;
+        if (roleDtos != null && roleDtos.size() > 0) {
+            for (RoleDto roleDto : roleDtos) {
+                if (roleDto.getId() > role) {
+                    role = roleDto.getId();
+                }
+            }
+            userDto.setRole(String.valueOf(role));
+            userDto.setRoles(roleDtos);
+        }
+        return userDto;
     }
 
+    @Override
+    public void delete(UserDto userDto) {
+        userInfoDao.delete(userDto);
+    }
 }

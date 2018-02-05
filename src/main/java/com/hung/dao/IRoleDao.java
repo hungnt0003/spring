@@ -7,4 +7,6 @@ import com.hung.dto.RoleDto;
 public interface IRoleDao {
 
     List<RoleDto> getRoles();
+
+    List<RoleDto> getRoles(String userName);
 }

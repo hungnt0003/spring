@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+.not-active {
+  pointer-events: none;
+  cursor: default;
+}

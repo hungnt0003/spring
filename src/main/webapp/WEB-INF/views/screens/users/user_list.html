@@ -1,4 +1,6 @@
 <div class="container">
+<link rel="stylesheet" href="../../../assets/css/screen/master/post.css"
+		th:href="@{/assets/css/screen/master/post.css}" />
 <table class="table table-striped" th:if="${not #lists.isEmpty(listElement)}">
     <thead>
       <tr>
@@ -8,16 +10,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="element : ${listElement}">
+      <tr th:each="element : ${listElement.elements}">
         <td >
 <!--         	<a th:href="@{${commonUrl.URL_ADMIN_USER_EDIT}(userName=${element.userName})}"> -->
-			<a th:href="@{admin/users/edit(userName=${element.userName})}">	
-				<span th:text="${element.userName}"></span>
+<!-- 			<a th:href="@{admin/users/edit(userName=${element.userName})}">	 -->
+<!-- 				<span th:text="${element.userName}"></span> -->
+<!-- 			</a> -->
+			<a th:href="${commonUrl.URL_ADMIN_USER_EDIT} + '/' + ${element.rowNo}" class="commonEditLink not-active">
+				<span th:text="${element.element.userName}"></span>
 			</a>
 		</td>
-        <td th:text="${element.firstName}"></td>
-        <td th:text="${element.lastName}"></td>
+        <td th:text="${element.element.firstName}"></td>
+        <td th:text="${element.element.lastName}"></td>
       </tr>
     </tbody>
   </table>
+  
+  	<!--/* 詳細画面(機能毎設定)遷移用HiddenForm */-->
+	<form th:action="@{${commonUrl.URL_ADMIN_USER_EDIT}}" class="commonDetailScreen" method="get">
+		<input type="hidden" name="rowNo" class="" />
+	</form>
 </div>

@@ -25,4 +25,12 @@ public final class WordConstants {
     public static final String WRD_REGISTER_LAST_NAME = "word.register.lastName";
     public static final String WRD_REGISTER_BIRTH_DAY = "word.register.birth";
     public static final String WRD_REGISTER_SEX = "word.register.sex";
+
+    public static final String WRD_MESS_ERR_NOT_DATA = "word.mess.err.not.data";
+    public static final String WRD_MESS_STORE_SUCCESS = "word.mess.store.success";
+    public static final String WRD_MESS_DELETE_SUCCESS = "word.mess.delete.success";
+    public static final String WRD_MESS_STORE_UNSUCCESS = "word.mess.store.unsuccess";
+    public static final String WRD_MESS_DELETE_UNSUCCESS = "word.mess.delete.unsuccess";
+
+    public static final String WRD_MESS_FATAL_ERR = "word.mess.fatal.err";
 }

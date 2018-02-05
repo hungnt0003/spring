@@ -38,8 +38,16 @@ public class RoleDao extends JdbcDaoSupport implements IRoleDao {
      */
     @Override
     public List<RoleDto> getRoles() {
-        String sql = "Select * from Users";
+        String sql = "SELECT * FROM ROLES";
         List<RoleDto> roles = this.getJdbcTemplate().query(sql, new BeanPropertyRowMapper(RoleDto.class));
+        return roles;
+    }
+
+    @Override
+    public List<RoleDto> getRoles(String userName) {
+        String sql = "SELECT * FROM USER_ROLES WHERE USERNAME=? ";
+        Object[] params = new Object[] {userName};
+        List<RoleDto> roles = this.getJdbcTemplate().query(sql, params, new BeanPropertyRowMapper(RoleDto.class));
         return roles;
     }
 

@@ -1,5 +1,6 @@
 package com.hung.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,8 +39,13 @@ public class UserDto extends AbstractDto {
     private String email;
     private String sex;
 
+    /**
+     * 
+     * Constructor.
+     */
     public UserDto() {
-
+        super();
+        setNewFlag(true);
     }
 
     public UserDto(String userName, String password) {
@@ -88,8 +94,17 @@ public class UserDto extends AbstractDto {
      * 
      * @return String enabled
      */
-    public String getEnabled() {
+    public String getEnabledStr() {
         return enabled ? "1" : "0";
+    }
+
+    /**
+     * enabledを取得する.
+     * 
+     * @return String enabled
+     */
+    public boolean getEnabled() {
+        return this.enabled;
     }
 
     /**
@@ -351,6 +366,27 @@ public class UserDto extends AbstractDto {
      */
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    @Override
+    public void init() {
+        setUserName(null);
+        setPassword(null);
+        setPasswordConfirm(null);
+        setEnabled(true);
+        setImgFile(null);
+        setAvartaPath(null);
+        setThumbPath(null);
+        setFirstName(null);
+        setLastName(null);
+        setBirth(null);
+        setStDate(null);
+        setEdDate(null);
+        setRoles(new ArrayList<>());
+        setRole(null);
+        setRememberMe(false);
+        setEmail(null);
+        setSex(null);
     }
 
 }

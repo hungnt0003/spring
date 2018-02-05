@@ -65,6 +65,10 @@
 
 <!-- 		</article> -->
 
+		<div th:if="${commonErrMess != null}">
+			<span th:text="${commonErrMess}"></span>
+		</div>
+
 		<!--/* Footer */-->
 		<link th:substituteby="common/common_footer :: common_footer"></link>
 

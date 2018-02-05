@@ -16,7 +16,7 @@ import com.hung.dto.UserDto;
  */
 public interface IRegisterService {
 
-    void storeUser(UserDto userDto);
+    void storeUser(UserDto userDto) throws Exception;
 
     SystemPropertiesDto getSystemPropertie(String systemName);
 }

@@ -15,8 +15,8 @@ import com.hung.common.AbstractDto;
  */
 public class RoleDto extends AbstractDto {
 
-    int id;
-    String name;
+    private int id;
+    private String name;
 
     /**
      * (デフォルト)コンストラクタ(ピリオド削除厳禁).
@@ -80,6 +80,11 @@ public class RoleDto extends AbstractDto {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void init() {
+        setName(null);
     }
 
 }

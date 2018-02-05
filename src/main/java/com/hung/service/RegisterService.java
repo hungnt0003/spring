@@ -42,7 +42,7 @@ public class RegisterService implements IRegisterService {
     ISystemPropertiesInterface systemPropertiesInterface;
 
     @Override
-    public void storeUser(UserDto userDto) {
+    public void storeUser(UserDto userDto) throws Exception {
         doUpload(userDto.getImgFile(), userDto);
         userInterface.storeUser(userDto);
     }

@@ -17,11 +17,13 @@ import com.hung.dto.UserDto;
  */
 public interface IUserInterface {
 
-    void storeUser(UserDto userDto);
+    void storeUser(UserDto userDto) throws Exception;
 
     UserDto getUser(String userName);
 
     List<UserDto> getUsers();
 
     UserDto getFullUser(String userName);
+
+    void delete(UserDto userDto);
 }

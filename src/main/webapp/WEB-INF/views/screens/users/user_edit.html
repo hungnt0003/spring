@@ -1,0 +1,53 @@
+<div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+	<form method="post" th:action="${commonUrl.URL_ADMIN_USER_STORE} + '?' + __${_csrf.parameterName}__ +'='+ __${_csrf.token}__"  th:object="${element}"  action="" class="form-horizontal">
+		 <div class="form-group">
+			   <label class="col-sm-2 control-label" >UserName</label>
+			   <div class="col-sm-10">
+				  	<input th:if="*{newFlag == true}" th:field="*{userName}" type="text" class="form-control" placeholder="UserName" th:errorclass="fieldError"/>
+				  	<label th:if="*{newFlag == false}" th:text="*{userName}" class="" />
+			   </div>  
+			   <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="error-text">error!</span>
+		 </div>
+		 
+		<div class="form-group">
+			<label class="col-sm-2 control-label" >Password</label>
+			<div class="col-sm-10">
+				<input  th:field="*{password}" type="text" class="form-control" placeholder="Password" th:errorclass="fieldError"/>  
+			</div>
+			<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-text">error!</span>
+		</div>
+	  
+	  <div class="form-group">
+			<label class="col-sm-2 control-label" >passwordConfirm</label>
+			<div class="col-sm-10">
+				<input  th:field="*{passwordConfirm}" type="text" class="form-control" placeholder="passwordConfirm" th:errorclass="fieldError"/>
+			</div>  
+			<span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="error-text">error!</span>
+	  </div>
+	  
+	  <div class="checkbox">
+	    <label>
+	      <input type="checkbox"> Enable
+	    </label>
+	  </div>
+	  
+		<div class="form-group">
+			<label class="col-sm-2 control-label" >First Name</label>
+			<div class="col-sm-10">
+				<input  th:field="*{firstName}" type="text" class="form-control" placeholder="firstName" th:errorclass="fieldError"/>  
+			</div>
+			<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-text">error!</span>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label" >lastName</label>
+			<div class="col-sm-10">
+				<input  th:field="*{lastName}" type="text" class="form-control" placeholder="lastName" th:errorclass="fieldError"/>  
+			</div>
+			<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-text">error!</span>
+		</div>
+	  
+	  
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+</div>

@@ -39,15 +39,6 @@ public interface IUserInfoDao {
 
     /**
      * 
-     * Get full user info(user info + rule) by user name.
-     * 
-     * @param userName userName
-     * @return user info
-     */
-    public UserDto getFullUser(String userName);
-
-    /**
-     * 
      * Add user to db.
      * 
      * @param userDto user info
