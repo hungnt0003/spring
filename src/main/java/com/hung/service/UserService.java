@@ -1,14 +1,17 @@
 package com.hung.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hung.common.exception.StoreException;
+import com.hung.common.utils.CommonListUtils;
 import com.hung.common.utils.CommonObjectUtils;
 import com.hung.dto.RoleDto;
 import com.hung.dto.UserDto;
+import com.hung.dto.common.SelectListDto;
 import com.hung.inf.IRoleInterface;
 import com.hung.inf.IUserInterface;
 
@@ -42,12 +45,19 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto getUser(String userName) throws NotFoundException {
-        UserDto user = userInterface.getFullUser(userName);
+        UserDto user = userInterface.getUser(userName);
         List<RoleDto> roles = roleInterface.getRoles();
         if (CommonObjectUtils.isNullOrEmpty(user)) {
             throw new NotFoundException("UserService#getFullUser UserDto not found");
         }
-        user.setRoles(roles);
+        List<SelectListDto> roleList = new ArrayList<>();
+        if (CommonListUtils.isNotNullOrEmpty(roles)) {
+            for (RoleDto dto : roles) {
+                SelectListDto selectDto = new SelectListDto(String.valueOf(dto.getId()), dto.getName());
+                roleList.add(selectDto);
+            }
+        }
+        user.setRoleList(roleList);
         return user;
     }
 

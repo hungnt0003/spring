@@ -9,7 +9,6 @@ import com.hung.common.exception.StoreException;
 import com.hung.common.utils.CommonObjectUtils;
 import com.hung.dao.IRoleDao;
 import com.hung.dao.IUserInfoDao;
-import com.hung.dto.RoleDto;
 import com.hung.dto.UserDto;
 
 /**
@@ -67,17 +66,6 @@ public class UserInterface implements IUserInterface {
     public UserDto getFullUser(String userName) {
         // TODO Auto-Generated Method Stub
         UserDto userDto = userInfoDao.getUser(userName);
-        List<RoleDto> roleDtos = roleDao.getRoles(userName);
-        int role = 0;
-        if (roleDtos != null && roleDtos.size() > 0) {
-            for (RoleDto roleDto : roleDtos) {
-                if (roleDto.getId() > role) {
-                    role = roleDto.getId();
-                }
-            }
-            userDto.setRole(String.valueOf(role));
-            userDto.setRoles(roleDtos);
-        }
         return userDto;
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hung.common.AbstractDto;
+import com.hung.dto.common.SelectListDto;
 
 /**
  * クラスタイトル(ピリオド削除厳禁).
@@ -33,11 +34,12 @@ public class UserDto extends AbstractDto {
     private Date birth;
     private Date stDate;
     private Date edDate;
-    private List<RoleDto> roles;
+    private List<SelectListDto> roleList;
     private String role;
     private boolean rememberMe = false;
     private String email;
     private String sex;
+    private List<SelectListDto> sexList;
 
     /**
      * 
@@ -261,21 +263,21 @@ public class UserDto extends AbstractDto {
     }
 
     /**
-     * rolesを取得する.
+     * roleListを取得する.
      * 
-     * @return List<RoleDto> roles
+     * @return List<SelectListDto> roleList
      */
-    public List<RoleDto> getRoles() {
-        return roles;
+    public List<SelectListDto> getRoleList() {
+        return roleList;
     }
 
     /**
-     * rolesを設定する.
+     * roleListを設定する.
      * 
-     * @param roles roles
+     * @param roleList roleList
      */
-    public void setRoles(List<RoleDto> roles) {
-        this.roles = roles;
+    public void setRoleList(List<SelectListDto> roleList) {
+        this.roleList = roleList;
     }
 
     /**
@@ -368,6 +370,24 @@ public class UserDto extends AbstractDto {
         this.sex = sex;
     }
 
+    /**
+     * sexListを取得する.
+     * 
+     * @return List<SelectListDto> sexList
+     */
+    public List<SelectListDto> getSexList() {
+        return sexList;
+    }
+
+    /**
+     * sexListを設定する.
+     * 
+     * @param sexList sexList
+     */
+    public void setSexList(List<SelectListDto> sexList) {
+        this.sexList = sexList;
+    }
+
     @Override
     public void init() {
         setUserName(null);
@@ -382,11 +402,12 @@ public class UserDto extends AbstractDto {
         setBirth(null);
         setStDate(null);
         setEdDate(null);
-        setRoles(new ArrayList<>());
+        setRoleList(new ArrayList<>());
         setRole(null);
         setRememberMe(false);
         setEmail(null);
         setSex(null);
+        setSexList(new ArrayList<>());
     }
 
 }

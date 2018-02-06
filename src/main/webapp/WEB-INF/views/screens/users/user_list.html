@@ -1,6 +1,18 @@
 <div class="container">
-<link rel="stylesheet" href="../../../assets/css/screen/master/post.css"
-		th:href="@{/assets/css/screen/master/post.css}" />
+
+<link rel="stylesheet" href="../../../assets/css/screen/admin/user.css"
+		th:href="@{/assets/css/screen/admin/user.css}" />
+
+<div class="row">
+	<div class="cf pull-right">
+		<button type="button" class="btn btn-info">
+			<a class="addLink" th:href="@{${commonUrl.URL_ADMIN_USER_ADD}}">
+				<span>新規作成</span>
+			</a>
+		</button>
+	</div>
+</div>
+
 <table class="table table-striped" th:if="${not #lists.isEmpty(listElement)}">
     <thead>
       <tr>
@@ -30,4 +42,7 @@
 	<form th:action="@{${commonUrl.URL_ADMIN_USER_EDIT}}" class="commonDetailScreen" method="get">
 		<input type="hidden" name="rowNo" class="" />
 	</form>
+	
+	<script src="../../assets/js/screen/admin/user.js"
+		th:src="@{/assets/js/screen/admin/user.js}"></script>
 </div>
