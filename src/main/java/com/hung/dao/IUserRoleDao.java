@@ -22,6 +22,8 @@ public interface IUserRoleDao {
 
     List<UserRoleDto> getUserRoles(String userName);
 
+    UserRoleDto getMaxRole(String userName);
+
     List<UserRoleDto> getUserRolesByRole(String role);
 
     UserRoleDto getUserRole(UserRoleDto userRoleDto);

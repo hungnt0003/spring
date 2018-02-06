@@ -5,10 +5,13 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hung.dao.mapper.UserMapper;
+import com.hung.dto.UserDto;
 import com.hung.dto.UserRoleDto;
 
 /**
@@ -118,6 +121,20 @@ public class UserRoleDao extends JdbcDaoSupport implements IUserRoleDao {
     public int deleteRuleDto(UserRoleDto userRoleDto) {
         // TODO Auto-Generated Method Stub
         return 0;
+    }
+
+    @Override
+    public UserRoleDto getMaxRole(String userName) {
+        String sql = "SELECT UR.USERNAME, R.ROLE_ID, R.ROLE_NAME FROM USER_ROLES ur "
+                + "INNER JOIN ROLES r ON ur.USER_ROLE = r.ROLE_ID "
+                + "WHERE UR.USERNAME = ? AND UR.USER_ROLE = (SELECT  MAX(USER_ROLE) USER_ROLE FROM USER_ROLES WHERE USERNAME = ?)";
+        UserMapper mapper = new UserMapper();
+        try {
+            UserDto user = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
 }

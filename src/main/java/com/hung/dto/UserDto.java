@@ -35,7 +35,7 @@ public class UserDto extends AbstractDto {
     private Date stDate;
     private Date edDate;
     private List<SelectListDto> roleList;
-    private String role;
+    private List<RoleDto> roles;
     private boolean rememberMe = false;
     private String email;
     private String sex;
@@ -281,21 +281,30 @@ public class UserDto extends AbstractDto {
     }
 
     /**
-     * roleを取得する.
+     * rolesを取得する.
      * 
-     * @return String role
+     * @return List<RoleDto> roles
      */
-    public String getRole() {
-        return role;
+    public List<RoleDto> getRoles() {
+        return roles;
     }
 
     /**
-     * roleを設定する.
+     * rolesを取得する.
      * 
-     * @param role role
+     * @return List<RoleDto> roles
      */
-    public void setRole(String role) {
-        this.role = role;
+    public String getRole() {
+        return roles.sort(c);
+    }
+
+    /**
+     * rolesを設定する.
+     * 
+     * @param roles roles
+     */
+    public void setRoles(List<RoleDto> roles) {
+        this.roles = roles;
     }
 
     /**
@@ -403,7 +412,7 @@ public class UserDto extends AbstractDto {
         setStDate(null);
         setEdDate(null);
         setRoleList(new ArrayList<>());
-        setRole(null);
+        setRoles(new ArrayList<>());
         setRememberMe(false);
         setEmail(null);
         setSex(null);

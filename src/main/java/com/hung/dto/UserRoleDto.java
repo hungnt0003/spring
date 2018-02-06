@@ -16,7 +16,7 @@ public class UserRoleDto {
 
     private String roleId;
     private String userName;
-    private String userRole;
+    private String roleName;
 
     /**
      * roleIdを取得する.
@@ -55,21 +55,21 @@ public class UserRoleDto {
     }
 
     /**
-     * userRoleを取得する.
+     * roleNameを取得する.
      * 
-     * @return String userRole
+     * @return String roleName
      */
-    public String getUserRole() {
-        return userRole;
+    public String getRoleName() {
+        return roleName;
     }
 
     /**
-     * userRoleを設定する.
+     * roleNameを設定する.
      * 
-     * @param userRole userRole
+     * @param roleName roleName
      */
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
 }
