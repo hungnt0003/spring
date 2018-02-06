@@ -25,52 +25,45 @@ import com.hung.dto.UserDto;
 @Component
 public class UserInterface implements IUserInterface {
 
-    /** UserInfoDao. */
-    @Autowired
-    private IUserInfoDao userInfoDao;
-    /** RoleDao. */
-    @Autowired
-    private IRoleDao roleDao;
+	/** UserInfoDao. */
+	@Autowired
+	private IUserInfoDao userInfoDao;
+	/** RoleDao. */
+	@Autowired
+	private IRoleDao roleDao;
 
-    @Override
-    public void storeUser(UserDto userDto) throws StoreException, Exception {
+	@Override
+	public void storeUser(UserDto userDto) throws StoreException, Exception {
 
-        int result = 0;
-        try {
-            if (CommonObjectUtils.isNullOrEmpty(userInfoDao.getUser(userDto.getUserName()))) {
-                result = userInfoDao.addUser(userDto);
-            } else {
-                result = userInfoDao.edit(userDto);
-            }
-        } catch (Exception e) {
-            throw new Exception();
-        }
-        if (result != 1) {
-            throw new StoreException();
-        }
-    }
+		int result = 0;
+		try {
+			if (CommonObjectUtils.isNullOrEmpty(userInfoDao.getUser(userDto.getUserName()))) {
+				result = userInfoDao.addUser(userDto);
+			} else {
+				result = userInfoDao.edit(userDto);
+			}
+		} catch (Exception e) {
+			throw new Exception();
+		}
+		if (result != 1) {
+			throw new StoreException();
+		}
+	}
 
-    @Override
-    public UserDto getUser(String userName) {
-        // TODO Auto-Generated Method Stub
-        return userInfoDao.getUser(userName);
-    }
+	@Override
+	public UserDto getUser(String userName) {
+		// TODO Auto-Generated Method Stub
+		return userInfoDao.getUser(userName);
+	}
 
-    @Override
-    public List<UserDto> getUsers() {
-        // TODO Auto-Generated Method Stub
-        return userInfoDao.getUsers();
-    }
+	@Override
+	public List<UserDto> getUsers() {
+		// TODO Auto-Generated Method Stub
+		return userInfoDao.getUsers();
+	}
 
-    @Override
-    public UserDto getFullUser(String userName) {
-        // TODO Auto-Generated Method Stub
-        UserDto userDto = userInfoDao.getUser(userName);
-        return userDto;
-    }
-
-    @Override
-    public void delete(UserDto userDto) {
-        userInfoDao.delete(userDto);
-    }
+	@Override
+	public void delete(UserDto userDto) {
+		userInfoDao.delete(userDto);
+	}
 }

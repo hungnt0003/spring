@@ -26,106 +26,91 @@ import com.hung.dto.UserDto;
 @Transactional
 public class UserInfoDao extends JdbcDaoSupport implements IUserInfoDao {
 
-    /**
-     * 
-     * Init dataSource.
-     * 
-     * @param dataSource dataSource
-     */
-    @Autowired
-    public UserInfoDao(DataSource dataSource) {
-        this.setDataSource(dataSource);
-    }
+	/**
+	 * 
+	 * Init dataSource.
+	 * 
+	 * @param dataSource
+	 *            dataSource
+	 */
+	@Autowired
+	public UserInfoDao(DataSource dataSource) {
+		this.setDataSource(dataSource);
+	}
 
-    /**
-     * 
-     * @see com.hung.dao.IUserInfoDao#getUser(java.lang.String)
-     * @param userName
-     * @return
-     */
-    @Override
-    public UserDto getUser(String userName) {
-        String sql = "Select * from Users where Username = ? ";
-        Object[] params = new Object[] {userName};
-        UserMapper mapper = new UserMapper();
-        try {
-            UserDto user = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-            return user;
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
+	/**
+	 * 
+	 * @see com.hung.dao.IUserInfoDao#getUser(java.lang.String)
+	 * @param userName
+	 * @return
+	 */
+	@Override
+	public UserDto getUser(String userName) {
+		String sql = "Select * from Users where Username = ? ";
+		Object[] params = new Object[] { userName };
+		UserMapper mapper = new UserMapper();
+		try {
+			UserDto user = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+			return user;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
 
-    /**
-     * 
-     * @see com.hung.dao.IUserInfoDao#getUserRoles(java.lang.String)
-     * @param userName
-     * @return
-     */
-    @Override
-    public List<String> getUserRoles(String userName) {
-        String sql = "Select r.User_Role "//
-                + " from User_Roles r where r.Username = ? ";
-        Object[] params = new Object[] {userName};
+	/**
+	 * 
+	 * @see com.hung.dao.IUserInfoDao#getUsers()
+	 * @return
+	 */
+	@Override
+	public List<UserDto> getUsers() {
 
-        List<String> roles = this.getJdbcTemplate().queryForList(sql, params, String.class);
+		String sql = "Select * from Users";
+		List<UserDto> users = this.getJdbcTemplate().query(sql, new BeanPropertyRowMapper(UserDto.class));
 
-        return roles;
-    }
+		return users;
 
-    /**
-     * 
-     * @see com.hung.dao.IUserInfoDao#getUsers()
-     * @return
-     */
-    @Override
-    public List<UserDto> getUsers() {
+	}
 
-        String sql = "Select * from Users";
-        List<UserDto> users = this.getJdbcTemplate().query(sql, new BeanPropertyRowMapper(UserDto.class));
+	/**
+	 * 
+	 * @see com.hung.dao.IUserInfoDao#addUser(com.hung.dto.UserDto)
+	 * @param userDto
+	 * @return
+	 */
+	@Override
+	public int addUser(UserDto userDto) {
+		String sql = SqlQueryDefineIf.USER_ADD;
+		return this.getJdbcTemplate().update(sql,
+				new Object[] { userDto.getUserName(), userDto.getPassword(), userDto.getAvartaPath(),
+						userDto.getFirstName(), userDto.getLastName(), userDto.getSex(), userDto.getThumbPath() });
+	}
 
-        return users;
+	/**
+	 * 
+	 * @see com.hung.dao.IUserInfoDao#edit(com.hung.dto.UserDto)
+	 * @param userDto
+	 * @return
+	 */
+	@Override
+	public int edit(UserDto userDto) {
+		String sql = SqlQueryDefineIf.USER_UPDATE;
+		return this.getJdbcTemplate().update(sql,
+				new Object[] { userDto.getPassword(), userDto.getEnabled(), userDto.getAvartaPath(),
+						userDto.getFirstName(), userDto.getLastName(), userDto.getSex(), userDto.getThumbPath(),
+						userDto.getUserName() });
+	}
 
-    }
-
-    /**
-     * 
-     * @see com.hung.dao.IUserInfoDao#addUser(com.hung.dto.UserDto)
-     * @param userDto
-     * @return
-     */
-    @Override
-    public int addUser(UserDto userDto) {
-        String sql = SqlQueryDefineIf.USER_ADD;
-        return this.getJdbcTemplate().update(sql, new Object[] {userDto.getUserName(),
-                userDto.getPassword(), userDto.getAvartaPath(), userDto.getFirstName(), userDto.getLastName(),
-                userDto.getSex(), userDto.getThumbPath()});
-    }
-
-    /**
-     * 
-     * @see com.hung.dao.IUserInfoDao#edit(com.hung.dto.UserDto)
-     * @param userDto
-     * @return
-     */
-    @Override
-    public int edit(UserDto userDto) {
-        String sql = SqlQueryDefineIf.USER_UPDATE;
-        return this.getJdbcTemplate().update(sql, new Object[] {userDto.getPassword(), userDto.getEnabled(),
-                userDto.getAvartaPath(), userDto.getFirstName(), userDto.getLastName(), userDto.getSex(),
-                userDto.getThumbPath(), userDto.getUserName()});
-    }
-
-    /**
-     * 
-     * @see com.hung.dao.IUserInfoDao#delete(com.hung.dto.UserDto)
-     * @param userDto
-     * @return
-     */
-    @Override
-    public int delete(UserDto userDto) {
-        String sql = SqlQueryDefineIf.USER_DELETE;
-        return this.getJdbcTemplate().update(sql, new Object[] {userDto.getUserName(), userDto.getStDate()});
-    }
+	/**
+	 * 
+	 * @see com.hung.dao.IUserInfoDao#delete(com.hung.dto.UserDto)
+	 * @param userDto
+	 * @return
+	 */
+	@Override
+	public int delete(UserDto userDto) {
+		String sql = SqlQueryDefineIf.USER_DELETE;
+		return this.getJdbcTemplate().update(sql, new Object[] { userDto.getUserName(), userDto.getStDate() });
+	}
 
 }

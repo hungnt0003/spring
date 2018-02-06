@@ -22,401 +22,420 @@ import com.hung.dto.common.SelectListDto;
  */
 public class UserDto extends AbstractDto {
 
-    private String userName;
-    private String password;
-    private String passwordConfirm;
-    private boolean enabled = true;
-    private MultipartFile imgFile;
-    private String avartaPath;
-    private String thumbPath;
-    private String firstName;
-    private String lastName;
-    private Date birth;
-    private Date stDate;
-    private Date edDate;
-    private List<SelectListDto> roleList;
-    private List<RoleDto> roles;
-    private boolean rememberMe = false;
-    private String email;
-    private String sex;
-    private List<SelectListDto> sexList;
+	private String userName;
+	private String password;
+	private String passwordConfirm;
+	private boolean enabled = true;
+	private MultipartFile imgFile;
+	private String avartaPath;
+	private String thumbPath;
+	private String firstName;
+	private String lastName;
+	private Date birth;
+	private Date stDate;
+	private Date edDate;
+	private List<SelectListDto> roleList;
+	private List<RoleDto> roles;
+	private RoleDto maxRole;
+	private boolean rememberMe = false;
+	private String email;
+	private String sex;
+	private List<SelectListDto> sexList;
 
-    /**
-     * 
-     * Constructor.
-     */
-    public UserDto() {
-        super();
-        setNewFlag(true);
-    }
+	/**
+	 * 
+	 * Constructor.
+	 */
+	public UserDto() {
+		super();
+		setNewFlag(true);
+	}
 
-    public UserDto(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
+	public UserDto(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
 
-    /**
-     * userNameを取得する.
-     * 
-     * @return String userName
-     */
-    public String getUserName() {
-        return userName;
-    }
+	/**
+	 * userNameを取得する.
+	 * 
+	 * @return String userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
 
-    /**
-     * userNameを設定する.
-     * 
-     * @param userName userName
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	/**
+	 * userNameを設定する.
+	 * 
+	 * @param userName
+	 *            userName
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    /**
-     * passwordを取得する.
-     * 
-     * @return String password
-     */
-    public String getPassword() {
-        return password;
-    }
+	/**
+	 * passwordを取得する.
+	 * 
+	 * @return String password
+	 */
+	public String getPassword() {
+		return password;
+	}
 
-    /**
-     * passwordを設定する.
-     * 
-     * @param password password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	/**
+	 * passwordを設定する.
+	 * 
+	 * @param password
+	 *            password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    /**
-     * enabledを取得する.
-     * 
-     * @return String enabled
-     */
-    public String getEnabledStr() {
-        return enabled ? "1" : "0";
-    }
+	/**
+	 * enabledを取得する.
+	 * 
+	 * @return String enabled
+	 */
+	public String getEnabledStr() {
+		return enabled ? "1" : "0";
+	}
 
-    /**
-     * enabledを取得する.
-     * 
-     * @return String enabled
-     */
-    public boolean getEnabled() {
-        return this.enabled;
-    }
+	/**
+	 * enabledを取得する.
+	 * 
+	 * @return String enabled
+	 */
+	public boolean getEnabled() {
+		return this.enabled;
+	}
 
-    /**
-     * enabledを設定する.
-     * 
-     * @param enabled enabled
-     */
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+	/**
+	 * enabledを設定する.
+	 * 
+	 * @param enabled
+	 *            enabled
+	 */
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-    /**
-     * imgFileを取得する.
-     * 
-     * @return MultipartFile imgFile
-     */
-    public MultipartFile getImgFile() {
-        return imgFile;
-    }
+	/**
+	 * imgFileを取得する.
+	 * 
+	 * @return MultipartFile imgFile
+	 */
+	public MultipartFile getImgFile() {
+		return imgFile;
+	}
 
-    /**
-     * imgFileを設定する.
-     * 
-     * @param imgFile imgFile
-     */
-    public void setImgFile(MultipartFile imgFile) {
-        this.imgFile = imgFile;
-    }
+	/**
+	 * imgFileを設定する.
+	 * 
+	 * @param imgFile
+	 *            imgFile
+	 */
+	public void setImgFile(MultipartFile imgFile) {
+		this.imgFile = imgFile;
+	}
 
-    /**
-     * avartaPathを取得する.
-     * 
-     * @return String avartaPath
-     */
-    public String getAvartaPath() {
-        return avartaPath;
-    }
+	/**
+	 * avartaPathを取得する.
+	 * 
+	 * @return String avartaPath
+	 */
+	public String getAvartaPath() {
+		return avartaPath;
+	}
 
-    /**
-     * avartaPathを設定する.
-     * 
-     * @param avartaPath avartaPath
-     */
-    public void setAvartaPath(String avartaPath) {
-        this.avartaPath = avartaPath;
-    }
+	/**
+	 * avartaPathを設定する.
+	 * 
+	 * @param avartaPath
+	 *            avartaPath
+	 */
+	public void setAvartaPath(String avartaPath) {
+		this.avartaPath = avartaPath;
+	}
 
-    /**
-     * thumbPathを取得する.
-     * 
-     * @return String thumbPath
-     */
-    public String getThumbPath() {
-        return thumbPath;
-    }
+	/**
+	 * thumbPathを取得する.
+	 * 
+	 * @return String thumbPath
+	 */
+	public String getThumbPath() {
+		return thumbPath;
+	}
 
-    /**
-     * thumbPathを設定する.
-     * 
-     * @param thumbPath thumbPath
-     */
-    public void setThumbPath(String thumbPath) {
-        this.thumbPath = thumbPath;
-    }
+	/**
+	 * thumbPathを設定する.
+	 * 
+	 * @param thumbPath
+	 *            thumbPath
+	 */
+	public void setThumbPath(String thumbPath) {
+		this.thumbPath = thumbPath;
+	}
 
-    /**
-     * firstNameを取得する.
-     * 
-     * @return String firstName
-     */
-    public String getFirstName() {
-        return firstName;
-    }
+	/**
+	 * firstNameを取得する.
+	 * 
+	 * @return String firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
 
-    /**
-     * firstNameを設定する.
-     * 
-     * @param firstName firstName
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	/**
+	 * firstNameを設定する.
+	 * 
+	 * @param firstName
+	 *            firstName
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    /**
-     * lastNameを取得する.
-     * 
-     * @return String lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
+	/**
+	 * lastNameを取得する.
+	 * 
+	 * @return String lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
 
-    /**
-     * lastNameを設定する.
-     * 
-     * @param lastName lastName
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	/**
+	 * lastNameを設定する.
+	 * 
+	 * @param lastName
+	 *            lastName
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    /**
-     * birthを取得する.
-     * 
-     * @return Date birth
-     */
-    public Date getBirth() {
-        return birth;
-    }
+	/**
+	 * birthを取得する.
+	 * 
+	 * @return Date birth
+	 */
+	public Date getBirth() {
+		return birth;
+	}
 
-    /**
-     * birthを設定する.
-     * 
-     * @param birth birth
-     */
-    public void setBirth(Date birth) {
-        this.birth = birth;
-    }
+	/**
+	 * birthを設定する.
+	 * 
+	 * @param birth
+	 *            birth
+	 */
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
 
-    /**
-     * stDateを取得する.
-     * 
-     * @return Date stDate
-     */
-    public Date getStDate() {
-        return stDate;
-    }
+	/**
+	 * stDateを取得する.
+	 * 
+	 * @return Date stDate
+	 */
+	public Date getStDate() {
+		return stDate;
+	}
 
-    /**
-     * stDateを設定する.
-     * 
-     * @param stDate stDate
-     */
-    public void setStDate(Date stDate) {
-        this.stDate = stDate;
-    }
+	/**
+	 * stDateを設定する.
+	 * 
+	 * @param stDate
+	 *            stDate
+	 */
+	public void setStDate(Date stDate) {
+		this.stDate = stDate;
+	}
 
-    /**
-     * edDateを取得する.
-     * 
-     * @return Date edDate
-     */
-    public Date getEdDate() {
-        return edDate;
-    }
+	/**
+	 * edDateを取得する.
+	 * 
+	 * @return Date edDate
+	 */
+	public Date getEdDate() {
+		return edDate;
+	}
 
-    /**
-     * edDateを設定する.
-     * 
-     * @param edDate edDate
-     */
-    public void setEdDate(Date edDate) {
-        this.edDate = edDate;
-    }
+	/**
+	 * edDateを設定する.
+	 * 
+	 * @param edDate
+	 *            edDate
+	 */
+	public void setEdDate(Date edDate) {
+		this.edDate = edDate;
+	}
 
-    /**
-     * roleListを取得する.
-     * 
-     * @return List<SelectListDto> roleList
-     */
-    public List<SelectListDto> getRoleList() {
-        return roleList;
-    }
+	/**
+	 * roleListを取得する.
+	 * 
+	 * @return List<SelectListDto> roleList
+	 */
+	public List<SelectListDto> getRoleList() {
+		return roleList;
+	}
 
-    /**
-     * roleListを設定する.
-     * 
-     * @param roleList roleList
-     */
-    public void setRoleList(List<SelectListDto> roleList) {
-        this.roleList = roleList;
-    }
+	/**
+	 * roleListを設定する.
+	 * 
+	 * @param roleList
+	 *            roleList
+	 */
+	public void setRoleList(List<SelectListDto> roleList) {
+		this.roleList = roleList;
+	}
 
-    /**
-     * rolesを取得する.
-     * 
-     * @return List<RoleDto> roles
-     */
-    public List<RoleDto> getRoles() {
-        return roles;
-    }
+	/**
+	 * rolesを取得する.
+	 * 
+	 * @return List<RoleDto> roles
+	 */
+	public List<RoleDto> getRoles() {
+		return roles;
+	}
 
-    /**
-     * rolesを取得する.
-     * 
-     * @return List<RoleDto> roles
-     */
-    public String getRole() {
-        return roles.sort(c);
-    }
+	/**
+	 * rolesを設定する.
+	 * 
+	 * @param roles
+	 *            roles
+	 */
+	public void setRoles(List<RoleDto> roles) {
+		this.roles = roles;
+	}
 
-    /**
-     * rolesを設定する.
-     * 
-     * @param roles roles
-     */
-    public void setRoles(List<RoleDto> roles) {
-        this.roles = roles;
-    }
+	/**
+	 * rememberMeを取得する.
+	 * 
+	 * @return boolean rememberMe
+	 */
+	public boolean isRememberMe() {
+		return rememberMe;
+	}
 
-    /**
-     * rememberMeを取得する.
-     * 
-     * @return boolean rememberMe
-     */
-    public boolean isRememberMe() {
-        return rememberMe;
-    }
+	/**
+	 * rememberMeを設定する.
+	 * 
+	 * @param rememberMe
+	 *            rememberMe
+	 */
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
+	}
 
-    /**
-     * rememberMeを設定する.
-     * 
-     * @param rememberMe rememberMe
-     */
-    public void setRememberMe(boolean rememberMe) {
-        this.rememberMe = rememberMe;
-    }
+	/**
+	 * passwordConfirmを取得する.
+	 * 
+	 * @return String passwordConfirm
+	 */
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
 
-    /**
-     * passwordConfirmを取得する.
-     * 
-     * @return String passwordConfirm
-     */
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
+	/**
+	 * passwordConfirmを設定する.
+	 * 
+	 * @param passwordConfirm
+	 *            passwordConfirm
+	 */
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 
-    /**
-     * passwordConfirmを設定する.
-     * 
-     * @param passwordConfirm passwordConfirm
-     */
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
+	/**
+	 * emailを取得する.
+	 * 
+	 * @return String email
+	 */
+	public String getEmail() {
+		return email;
+	}
 
-    /**
-     * emailを取得する.
-     * 
-     * @return String email
-     */
-    public String getEmail() {
-        return email;
-    }
+	/**
+	 * emailを設定する.
+	 * 
+	 * @param email
+	 *            email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    /**
-     * emailを設定する.
-     * 
-     * @param email email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/**
+	 * sexを取得する.
+	 * 
+	 * @return String sex
+	 */
+	public String getSex() {
+		return sex;
+	}
 
-    /**
-     * sexを取得する.
-     * 
-     * @return String sex
-     */
-    public String getSex() {
-        return sex;
-    }
+	/**
+	 * sexを設定する.
+	 * 
+	 * @param sex
+	 *            sex
+	 */
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 
-    /**
-     * sexを設定する.
-     * 
-     * @param sex sex
-     */
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
+	/**
+	 * sexListを取得する.
+	 * 
+	 * @return List<SelectListDto> sexList
+	 */
+	public List<SelectListDto> getSexList() {
+		return sexList;
+	}
 
-    /**
-     * sexListを取得する.
-     * 
-     * @return List<SelectListDto> sexList
-     */
-    public List<SelectListDto> getSexList() {
-        return sexList;
-    }
+	/**
+	 * sexListを設定する.
+	 * 
+	 * @param sexList
+	 *            sexList
+	 */
+	public void setSexList(List<SelectListDto> sexList) {
+		this.sexList = sexList;
+	}
 
-    /**
-     * sexListを設定する.
-     * 
-     * @param sexList sexList
-     */
-    public void setSexList(List<SelectListDto> sexList) {
-        this.sexList = sexList;
-    }
+	public RoleDto getMaxRole() {
+		return maxRole;
+	}
 
-    @Override
-    public void init() {
-        setUserName(null);
-        setPassword(null);
-        setPasswordConfirm(null);
-        setEnabled(true);
-        setImgFile(null);
-        setAvartaPath(null);
-        setThumbPath(null);
-        setFirstName(null);
-        setLastName(null);
-        setBirth(null);
-        setStDate(null);
-        setEdDate(null);
-        setRoleList(new ArrayList<>());
-        setRoles(new ArrayList<>());
-        setRememberMe(false);
-        setEmail(null);
-        setSex(null);
-        setSexList(new ArrayList<>());
-    }
+	public void setMaxRole(RoleDto maxRole) {
+		this.maxRole = maxRole;
+	}
+
+	@Override
+	public void init() {
+		setUserName(null);
+		setPassword(null);
+		setPasswordConfirm(null);
+		setEnabled(true);
+		setImgFile(null);
+		setAvartaPath(null);
+		setThumbPath(null);
+		setFirstName(null);
+		setLastName(null);
+		setBirth(null);
+		setStDate(null);
+		setEdDate(null);
+		setRoleList(new ArrayList<>());
+		setRoles(new ArrayList<>());
+		setRememberMe(false);
+		setEmail(null);
+		setSex(null);
+		setSexList(new ArrayList<>());
+		setMaxRole(null);
+	}
 
 }

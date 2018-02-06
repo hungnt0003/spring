@@ -22,17 +22,17 @@ import com.hung.dto.UserDto;
 @Service
 public class LoginService implements ILoginService {
 
-    @Autowired
-    IUserInfoDao loginDao;
+	@Autowired
+	IUserInfoDao loginDao;
 
-    @Override
-    public UserDto getUser(String userName) {
-        return loginDao.getUser(userName);
-    }
+	@Override
+	public UserDto getUser(String userName) {
+		return loginDao.getUser(userName);
+	}
 
-    @Override
-    public List<String> getUserRoles(String userName) {
-        return loginDao.getUserRoles(userName);
-    }
+	@Override
+	public List<String> getUserRoles(String userName) {
+		return null;
+	}
 
 }

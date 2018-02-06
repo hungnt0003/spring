@@ -12,7 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.hung.dao.IUserInfoDao;
+import com.hung.dao.IUserRoleDao;
 import com.hung.dto.UserDto;
+import com.hung.dto.UserRoleDto;
 
 /**
  * クラスタイトル(ピリオド削除厳禁).
@@ -28,34 +30,38 @@ import com.hung.dto.UserDto;
 @Service
 public class MyDBAuthenticationService implements UserDetailsService {
 
-    @Autowired
-    private IUserInfoDao userInfoDao;
+	/** UserInfoDao. */
+	@Autowired
+	private IUserInfoDao userInfoDao;
+	/** UserInfoDao. */
+	@Autowired
+	private IUserRoleDao userRoleDao;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto user = userInfoDao.getUser(username);
-        System.out.println("UserInfo= " + user);
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDto user = userInfoDao.getUser(username);
+		System.out.println("UserInfo= " + user);
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + username + " was not found in the database");
-        }
+		if (user == null) {
+			throw new UsernameNotFoundException("User " + username + " was not found in the database");
+		}
 
-        // [USER,ADMIN,..]
-        List<String> roles = userInfoDao.getUserRoles(username);
+		// [USER,ADMIN,..]
+		List<UserRoleDto> roles = userRoleDao.getUserRoles(username);
 
-        List<GrantedAuthority> grantList = new ArrayList<>();
-        if (roles != null) {
-            for (String role : roles) {
-                // ROLE_USER, ROLE_ADMIN,..
-                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
-                grantList.add(authority);
-                System.out.println(role + "==");
-            }
-        }
+		List<GrantedAuthority> grantList = new ArrayList<>();
+		if (roles != null) {
+			for (UserRoleDto role : roles) {
+				// ROLE_USER, ROLE_ADMIN,..
+				GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.getRoleName());
+				grantList.add(authority);
+				System.out.println(role + "==");
+			}
+		}
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserName(),
-                user.getPassword(), grantList);
+		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserName(),
+				user.getPassword(), grantList);
 
-        return userDetails;
-    }
+		return userDetails;
+	}
 }
