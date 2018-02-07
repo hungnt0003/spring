@@ -3,10 +3,10 @@
 <link rel="stylesheet" href="../../../assets/css/screen/admin/user.css"
 		th:href="@{/assets/css/screen/admin/user.css}" />
 
-	<form method="post" th:action="${commonUrl.URL_ADMIN_USER_STORE} + '?' + __${_csrf.parameterName}__ +'='+ __${_csrf.token}__"  th:object="${element}"  action="" class="form-horizontal" enctype="multipart/form-data">
+	<form method="post" th:action="@{''}" action="#"  th:object="${element}"  class="form-horizontal commonFormSubmit" enctype="multipart/form-data">
 		 <div class="form-group">
-			   <label class="col-sm-2 control-label" >UserName</label>
-			   <div class="col-sm-10">
+			   <label class="col-sm-4 control-label" >UserName</label>
+			   <div class="col-sm-8">
 				  	<input th:if="*{newFlag == true}" th:field="*{userName}" type="text" class="form-control" placeholder="UserName" th:errorclass="fieldError"/>
 				  	<label th:if="*{newFlag == false}" th:text="*{userName}" class="" />
 			   </div>  
@@ -14,16 +14,16 @@
 		 </div>
 		 
 		<div th:if="*{newFlag == true}" class="form-group">
-			<label class="col-sm-2 control-label" >Password</label>
-			<div class="col-sm-10">
+			<label class="col-sm-4 control-label" >Password</label>
+			<div class="col-sm-8">
 				<input  th:field="*{password}" type="text" class="form-control" placeholder="Password" th:errorclass="fieldError"/>  
 			</div>
 			<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-text">error!</span>
 		</div>
 	  
 	  <div th:if="*{newFlag == true}" class="form-group">
-			<label class="col-sm-2 control-label" >passwordConfirm</label>
-			<div class="col-sm-10">
+			<label class="col-sm-4 control-label" >passwordConfirm</label>
+			<div class="col-sm-8">
 				<input  th:field="*{passwordConfirm}" type="text" class="form-control" placeholder="passwordConfirm" th:errorclass="fieldError"/>
 			</div>  
 			<span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="error-text">error!</span>
@@ -36,56 +36,52 @@
 	  </div>
 	  
 		<div class="form-group">
-			<label class="col-sm-2 control-label" >First Name</label>
-			<div class="col-sm-10">
+			<label class="col-sm-4 control-label" >First Name</label>
+			<div class="col-sm-8">
 				<input  th:field="*{firstName}" type="text" class="form-control" placeholder="firstName" th:errorclass="fieldError"/>  
 			</div>
 			<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-text">error!</span>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label" >lastName</label>
-			<div class="col-sm-10">
+			<label class="col-sm-4 control-label" >lastName</label>
+			<div class="col-sm-8">
 				<input  th:field="*{lastName}" type="text" class="form-control" placeholder="lastName" th:errorclass="fieldError"/>  
 			</div>
 			<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-text">error!</span>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label" >Birth</label>
-			<div class="col-sm-10">
+			<label class="col-sm-4 control-label" >Birth</label>
+			<div class="col-sm-8">
 				<input  th:field="*{birth}" type="text" class="form-control" placeholder="birth" th:errorclass="fieldError"/>  
 			</div>
 			<span th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error-text">error!</span>
 		</div>
 	  
 		<div class="form-group">
-			<label class="col-sm-2 control-label" >Roles</label>
-			<div class="col-sm-10">
-				<select class="form-control" th:field="*{role}">
-					<option th:each="roleElm : ${roleList}"
-                            th:value="${roleElm.key}"
-                            th:utext="${roleElm.value}" />
+			<label class="col-sm-4" for="role"> Roles</label>
+			<div class="col-sm-8">
+				<select th:field="*{role}" th:errorclass="fieldError" class="form-control">
+					<option th:each="item : ${element.roleList}" th:value="${item.key}" th:text="${item.value}"></option>
 				</select>
 			</div>
 			<span th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error-text">error!</span>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label" >email</label>
-			<div class="col-sm-10">
+			<label class="col-sm-4 control-label" >email</label>
+			<div class="col-sm-8">
 				<input  th:field="*{email}" type="text" class="form-control" placeholder="email" th:errorclass="fieldError"/>  
 			</div>
 			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-text">error!</span>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label" >Sex</label>
-			<div class="col-sm-10">
-				<select class="form-control" th:field="*{sex}">
-					<option th:each="sexElm : ${sexList}"
-                            th:value="${sexElm.key}"
-                            th:utext="${sexElm.value}" />
+			<label class="col-sm-4" for="sex">Sex</label>
+			<div class="col-sm-8">
+				<select th:field="*{sex}" th:errorclass="fieldError" class="form-control" id="sex">
+					<option th:each="item : ${element.sexList}" th:value="${item.key}" th:text="${item.value}"></option>
 				</select>
 			</div>
 			<span th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="error-text">error!</span>
@@ -93,7 +89,7 @@
 		
 		<input th:if="*{newFlag == true}" type="file" th:field="*{imgFile}" th:errorclass="fieldError"/>
 	  
-	  <button type="submit" class="btn btn-default">Submit</button>
+	  <button type="submit" class="commonStoreBtn btn btn-default"><a th:href="@{${commonUrl.URL_ADMIN_USER_STORE} + '?' + __${_csrf.parameterName}__ +'='+ __${_csrf.token}__}">Submit</a></button>
 	</form>
 	
 	<script src="../../assets/js/screen/admin/user.js"

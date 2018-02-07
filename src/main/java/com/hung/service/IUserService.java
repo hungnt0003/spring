@@ -27,4 +27,6 @@ public interface IUserService {
     void store(UserDto dto) throws StoreException, Exception;
 
     void delete(UserDto dto);
+
+    void initDataList(UserDto dto);
 }

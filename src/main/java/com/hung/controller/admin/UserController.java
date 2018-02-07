@@ -41,195 +41,196 @@ import javassist.NotFoundException;
 @Controller
 public class UserController extends CommonController {
 
-	// ■ SessionKey
-	/** SessionKey - 一覧データ. */
-	private static final String SESSION_LIST_ELEMENT_KEY = UserController.class.getSimpleName() + "LIST";
-	/** SessionKey - 選択データ. */
-	private static final String SESSION_ELEMENT_KEY = UserController.class.getSimpleName() + "SELECTED_ITEM";
+    // ■ SessionKey
+    /** SessionKey - 一覧データ. */
+    private static final String SESSION_LIST_ELEMENT_KEY = UserController.class.getSimpleName() + "LIST";
+    /** SessionKey - 選択データ. */
+    private static final String SESSION_ELEMENT_KEY = UserController.class.getSimpleName() + "SELECTED_ITEM";
 
-	/** IUserService. */
-	@Autowired
-	IUserService userService;
+    /** IUserService. */
+    @Autowired
+    IUserService userService;
 
-	/**
-	 * 
-	 * 一覧画面.
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = UrlConstants.URL_ADMIN_USER, method = RequestMethod.GET)
-	public ModelAndView users(Model model) {
+    /**
+     * 
+     * 一覧画面.
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = UrlConstants.URL_ADMIN_USER, method = RequestMethod.GET)
+    public ModelAndView users(Model model) {
 
-		clearSessionData(SESSION_LIST_ELEMENT_KEY, SESSION_ELEMENT_KEY);
+        clearSessionData(SESSION_LIST_ELEMENT_KEY, SESSION_ELEMENT_KEY);
 
-		List<UserDto> userDtos = new ArrayList<>();
-		try {
-			userDtos = userService.search();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+        List<UserDto> userDtos = new ArrayList<>();
+        try {
+            userDtos = userService.search();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
-		// Wrap
-		ListDto<UserDto> dispList = new ListDto<>(userDtos);
+        // Wrap
+        ListDto<UserDto> dispList = new ListDto<>(userDtos);
 
-		setSessionData(SESSION_LIST_ELEMENT_KEY, dispList);
-		model.addAttribute(LIST_ELEMENT_KEY, dispList);
+        setSessionData(SESSION_LIST_ELEMENT_KEY, dispList);
+        model.addAttribute(LIST_ELEMENT_KEY, dispList);
 
-		model.addAttribute(MAIN_CONTENT_VIEW_KEY, "screens/users/user_list");
+        model.addAttribute(MAIN_CONTENT_VIEW_KEY, "screens/users/user_list");
 
-		return new AdminModelAndView();
+        return new AdminModelAndView();
 
-	}
+    }
 
-	/**
-	 * 
-	 * 追加.
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = UrlConstants.URL_ADMIN_USER_ADD, method = RequestMethod.GET)
-	public ModelAndView add(Model model) {
-		clearSessionData(SESSION_ELEMENT_KEY);
-		if (!model.containsAttribute(ELEMENT_KEY)) {
-			UserDto user = new UserDto();
-			// Set ViewInfo
-			model.addAttribute(ELEMENT_KEY, user);
-		}
-		model.addAttribute(MAIN_CONTENT_VIEW_KEY, "screens/users/user_edit");
+    /**
+     * 
+     * 追加.
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = UrlConstants.URL_ADMIN_USER_ADD, method = RequestMethod.GET)
+    public ModelAndView add(Model model) {
+        clearSessionData(SESSION_ELEMENT_KEY);
+        if (!model.containsAttribute(ELEMENT_KEY)) {
+            UserDto user = new UserDto();
+            userService.initDataList(user);
+            // Set ViewInfo
+            model.addAttribute(ELEMENT_KEY, user);
+        }
+        model.addAttribute(MAIN_CONTENT_VIEW_KEY, "screens/users/user_edit");
 
-		return new AdminModelAndView();
-	}
+        return new AdminModelAndView();
+    }
 
-	/**
-	 * 
-	 * 編集.
-	 * 
-	 * @param model
-	 * @param redirectAttributes
-	 * @param elementDto
-	 * @return
-	 */
-	@RequestMapping(value = UrlConstants.URL_ADMIN_USER_EDIT, method = RequestMethod.GET)
-	public ModelAndView edit(Model model, final RedirectAttributes redirectAttributes,
-			@ModelAttribute("elementDto") ListElementDto<UserDto> elementDto) {
+    /**
+     * 
+     * 編集.
+     * 
+     * @param model
+     * @param redirectAttributes
+     * @param elementDto
+     * @return
+     */
+    @RequestMapping(value = UrlConstants.URL_ADMIN_USER_EDIT, method = RequestMethod.GET)
+    public ModelAndView edit(Model model, final RedirectAttributes redirectAttributes,
+            @ModelAttribute("elementDto") ListElementDto<UserDto> elementDto) {
 
-		AdminModelAndView mv = new AdminModelAndView();
+        AdminModelAndView mv = new AdminModelAndView();
 
-		// Get userDto from Session
-		UserDto userDtoSession = (UserDto) getSessionData(SESSION_ELEMENT_KEY);
+        // Get userDto from Session
+        UserDto userDtoSession = (UserDto) getSessionData(SESSION_ELEMENT_KEY);
 
-		if (CommonObjectUtils.isNullOrEmpty(userDtoSession)) {
-			// 選択された値の取得
-			ListDto<UserDto> list = (ListDto<UserDto>) getSessionData(SESSION_LIST_ELEMENT_KEY);
-			if (CommonObjectUtils.isNotNullOrEmpty(list)) {
-				try {
-					userDtoSession = list.getElement(elementDto);
-				} catch (NotFoundException e) {
-					handleException(redirectAttributes, REDIRECT + UrlConstants.URL_ADMIN_USER,
-							WordConstants.WRD_MESS_ERR_NOT_DATA);
-				}
-			}
-		}
+        if (CommonObjectUtils.isNullOrEmpty(userDtoSession)) {
+            // 選択された値の取得
+            ListDto<UserDto> list = (ListDto<UserDto>) getSessionData(SESSION_LIST_ELEMENT_KEY);
+            if (CommonObjectUtils.isNotNullOrEmpty(list)) {
+                try {
+                    userDtoSession = list.getElement(elementDto);
+                } catch (NotFoundException e) {
+                    handleException(redirectAttributes, REDIRECT + UrlConstants.URL_ADMIN_USER,
+                            WordConstants.WRD_MESS_ERR_NOT_DATA);
+                }
+            }
+        }
 
-		// Session又は一覧画面からのアクセスではない場合、エラーとみなされ、一覧画面に戻る
-		if (CommonObjectUtils.isNullOrEmpty(userDtoSession)) {
-			handleException(redirectAttributes, REDIRECT + UrlConstants.URL_ADMIN_USER,
-					WordConstants.WRD_MESS_ERR_NOT_DATA);
-		}
+        // Session又は一覧画面からのアクセスではない場合、エラーとみなされ、一覧画面に戻る
+        if (CommonObjectUtils.isNullOrEmpty(userDtoSession)) {
+            handleException(redirectAttributes, REDIRECT + UrlConstants.URL_ADMIN_USER,
+                    WordConstants.WRD_MESS_ERR_NOT_DATA);
+        }
 
-		// 再取得
-		UserDto userDto;
-		try {
-			if (!model.containsAttribute(ELEMENT_KEY)) {
-				userDto = userService.getUser(userDtoSession.getUserName());
-				// NewFlag：False
-				userDto.setNewFlag(false);
-				// userDto.setuserName(userDtoSession.getuserName());
-				// Set Session
-				setSessionData(SESSION_ELEMENT_KEY, userDto);
-				// Set ViewInfo
-				model.addAttribute(ELEMENT_KEY, userDto);
-			}
-		} catch (NotFoundException e) {
-			// 見つからない場合は、一覧画面にリダイレクトする
-			handleException(redirectAttributes, REDIRECT + UrlConstants.URL_ADMIN_USER,
-					WordConstants.WRD_MESS_ERR_NOT_DATA);
-		}
-		model.addAttribute(MAIN_CONTENT_VIEW_KEY, "screens/users/user_edit");
-		return mv;
-	}
+        // 再取得
+        UserDto userDto;
+        try {
+            if (!model.containsAttribute(ELEMENT_KEY)) {
+                userDto = userService.getUser(userDtoSession.getUserName());
+                // NewFlag：False
+                userDto.setNewFlag(false);
+                // userDto.setuserName(userDtoSession.getuserName());
+                // Set Session
+                setSessionData(SESSION_ELEMENT_KEY, userDto);
+                // Set ViewInfo
+                model.addAttribute(ELEMENT_KEY, userDto);
+            }
+        } catch (NotFoundException e) {
+            // 見つからない場合は、一覧画面にリダイレクトする
+            handleException(redirectAttributes, REDIRECT + UrlConstants.URL_ADMIN_USER,
+                    WordConstants.WRD_MESS_ERR_NOT_DATA);
+        }
+        model.addAttribute(MAIN_CONTENT_VIEW_KEY, "screens/users/user_edit");
+        return mv;
+    }
 
-	@RequestMapping(value = UrlConstants.URL_ADMIN_USER_STORE, method = RequestMethod.POST)
-	public ModelAndView store(Model model, final RedirectAttributes redirectAttributes,
-			@ModelAttribute(ELEMENT_KEY) @Validated UserDto userDto, BindingResult bindingResult) {
+    @RequestMapping(value = UrlConstants.URL_ADMIN_USER_STORE, method = RequestMethod.POST)
+    public ModelAndView store(Model model, final RedirectAttributes redirectAttributes,
+            @ModelAttribute(ELEMENT_KEY) @Validated UserDto userDto, BindingResult bindingResult) {
 
-		AdminModelAndView mv = new AdminModelAndView();
+        AdminModelAndView mv = new AdminModelAndView();
 
-		// Get userDto from Session
-		UserDto userDtoSession = (UserDto) getSessionData(SESSION_ELEMENT_KEY);
-		if (userDtoSession != null) {
-			// 編集処理
-			userDtoSession.setNewFlag(false);
-			// Sessionの値で同期
-			// userDto.setuserId(userDtoSession.getuserId());
-			// userDto.setStDate(userDtoSession.getStDate());
-			// userDto.setEdDate(userDtoSession.getEdDate());
-		} else {
-			// 新規登録処理
-			userDto.setNewFlag(true);
+        // Get userDto from Session
+        UserDto userDtoSession = (UserDto) getSessionData(SESSION_ELEMENT_KEY);
+        if (userDtoSession != null) {
+            // 編集処理
+            userDtoSession.setNewFlag(false);
+            // Sessionの値で同期
+            // userDto.setuserId(userDtoSession.getuserId());
+            // userDto.setStDate(userDtoSession.getStDate());
+            // userDto.setEdDate(userDtoSession.getEdDate());
+        } else {
+            // 新規登録処理
+            userDto.setNewFlag(true);
 
-		}
+        }
 
-		// Validatorで新規登録か、更新か判断できるため、フラグを設定する
-		// クライアントから送ったデータをValidate処理を行う
-		// userValidator.validate(userDto, bindingResult);
+        // Validatorで新規登録か、更新か判断できるため、フラグを設定する
+        // クライアントから送ったデータをValidate処理を行う
+        // userValidator.validate(userDto, bindingResult);
 
-		// Check Validate Result
-		// if (bindingResult.hasErrors()) {
-		// redirectAttributes.addFlashAttribute(BINDING_RESULT + user_KEY,
-		// bindingResult);
-		// redirectAttributes.addFlashAttribute(user_KEY, userDto);
-		//
-		// if (userDto.isNewFlag()) {
-		// mv.setViewName(REDIRECT + MasterUrlConstants.URL_user_ADD);
-		// } else {
-		// mv.setViewName(REDIRECT + MasterUrlConstants.URL_user_EDIT);
-		// }
-		// return mv;
-		// }
+        // Check Validate Result
+        // if (bindingResult.hasErrors()) {
+        // redirectAttributes.addFlashAttribute(BINDING_RESULT + user_KEY,
+        // bindingResult);
+        // redirectAttributes.addFlashAttribute(user_KEY, userDto);
+        //
+        // if (userDto.isNewFlag()) {
+        // mv.setViewName(REDIRECT + MasterUrlConstants.URL_user_ADD);
+        // } else {
+        // mv.setViewName(REDIRECT + MasterUrlConstants.URL_user_EDIT);
+        // }
+        // return mv;
+        // }
 
-		// 登録が失敗かどうか
-		boolean isSuccess = false;
-		try {
-			// 登録・更新
-			userService.store(userDto);
-			// Set Message：成功
-			setErrorMessage(model, WordConstants.WRD_MESS_STORE_SUCCESS);
-			isSuccess = true;
-		} catch (StoreException e) {
-			// Set Message：失敗
-			setErrorMessage(model, WordConstants.WRD_MESS_STORE_UNSUCCESS);
-		} catch (Exception e) {
-			// Set Message：その他エラー
-			setErrorMessage(model, WordConstants.WRD_MESS_FATAL_ERR);
-		}
+        // 登録が失敗かどうか
+        boolean isSuccess = false;
+        try {
+            // 登録・更新
+            userService.store(userDto);
+            // Set Message：成功
+            setErrorMessage(model, WordConstants.WRD_MESS_STORE_SUCCESS);
+            isSuccess = true;
+        } catch (StoreException e) {
+            // Set Message：失敗
+            setErrorMessage(model, WordConstants.WRD_MESS_STORE_UNSUCCESS);
+        } catch (Exception e) {
+            // Set Message：その他エラー
+            setErrorMessage(model, WordConstants.WRD_MESS_FATAL_ERR);
+        }
 
-		// 初期化
-		if (userDto.isNewFlag()) {
-			if (isSuccess) {
-				// 初期化
-				userDto.init();
-				userDto.setNewFlag(true);
-			}
-			mv.setViewName(REDIRECT + UrlConstants.URL_ADMIN_USER_ADD);
-		} else {
-			mv.setViewName(REDIRECT + UrlConstants.URL_ADMIN_USER_EDIT);
-		}
-		setSessionData(SESSION_ELEMENT_KEY, userDto);
-		// 成功か失敗か、どっちも再表示を行う
-		redirectAttributes.addFlashAttribute(ELEMENT_KEY, userDto);
-		return mv;
-	}
+        // 初期化
+        if (userDto.isNewFlag()) {
+            if (isSuccess) {
+                // 初期化
+                userDto.init();
+                userDto.setNewFlag(true);
+            }
+            mv.setViewName(REDIRECT + UrlConstants.URL_ADMIN_USER_ADD);
+        } else {
+            mv.setViewName(REDIRECT + UrlConstants.URL_ADMIN_USER_EDIT);
+        }
+        setSessionData(SESSION_ELEMENT_KEY, userDto);
+        // 成功か失敗か、どっちも再表示を行う
+        redirectAttributes.addFlashAttribute(ELEMENT_KEY, userDto);
+        return mv;
+    }
 }

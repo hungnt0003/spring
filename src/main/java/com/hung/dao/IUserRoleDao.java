@@ -32,5 +32,5 @@ public interface IUserRoleDao {
 
     int updateRuleDto(UserRoleDto userRoleDto);
 
-    int deleteRuleDto(UserRoleDto userRoleDto);
+    int deleteRuleDto(String userName);
 }

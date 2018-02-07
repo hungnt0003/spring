@@ -39,6 +39,21 @@ $(document).ready(function() {
 		return;
 	}
 	;
+
+	// 登録ボタンがクリックされた時
+	$(document).on("click", ".commonStoreBtn", storeHandler);
+	// データを保存する
+	function storeHandler(event) {
+		event.preventDefault();
+		// ロードアイコンを表示する
+		// showLoader();
+		// 対象するForm
+		var $saveForm = $('.commonFormSubmit');
+		// 対象するFormに登録アクションURL attributeを設定する
+		$saveForm.attr("action", $(this).find('a').attr("href"));
+		$saveForm.submit();
+		return;
+	}
 });
 
 /**

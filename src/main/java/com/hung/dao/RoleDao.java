@@ -5,11 +5,11 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hung.dao.mapper.RoleMapper;
 import com.hung.dto.RoleDto;
 
 /**
@@ -39,7 +39,9 @@ public class RoleDao extends JdbcDaoSupport implements IRoleDao {
     @Override
     public List<RoleDto> getRoles() {
         String sql = "SELECT * FROM ROLES";
-        List<RoleDto> roles = this.getJdbcTemplate().query(sql, new BeanPropertyRowMapper(RoleDto.class));
+        Object[] params = new Object[] {};
+        RoleMapper mapper = new RoleMapper();
+        List<RoleDto> roles = this.getJdbcTemplate().query(sql, params, mapper);
         return roles;
     }
 
@@ -47,7 +49,8 @@ public class RoleDao extends JdbcDaoSupport implements IRoleDao {
     public List<RoleDto> getRoles(String userName) {
         String sql = "SELECT * FROM USER_ROLES WHERE USERNAME=? ";
         Object[] params = new Object[] {userName};
-        List<RoleDto> roles = this.getJdbcTemplate().query(sql, params, new BeanPropertyRowMapper(RoleDto.class));
+        RoleMapper mapper = new RoleMapper();
+        List<RoleDto> roles = this.getJdbcTemplate().query(sql, params, mapper);
         return roles;
     }
 

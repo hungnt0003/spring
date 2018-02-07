@@ -11,15 +11,17 @@ import com.hung.dto.UserRoleDto;
  */
 public interface IUserRoleInterface {
 
-	List<UserRoleDto> getUserRoles();
+    List<UserRoleDto> getUserRoles();
 
-	List<UserRoleDto> getUserRoles(String userName);
+    List<UserRoleDto> getUserRoles(String userName);
 
-	UserRoleDto getMaxRole(String userName);
+    UserRoleDto getMaxRole(String userName);
 
-	List<UserRoleDto> getUserRolesByRole(String role);
+    List<UserRoleDto> getUserRolesByRole(String role);
 
-	UserRoleDto getUserRole(UserRoleDto userRoleDto);
+    UserRoleDto getUserRole(UserRoleDto userRoleDto);
 
-	void storeUserRole(UserRoleDto userRoleDto);
+    void storeUserRole(UserRoleDto userRoleDto);
+
+    void deleteUserRole(String userName);
 }
