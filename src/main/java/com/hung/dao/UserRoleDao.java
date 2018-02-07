@@ -45,15 +45,14 @@ public class UserRoleDao extends JdbcDaoSupport implements IUserRoleDao {
      */
     @Override
     public List<UserRoleDto> getUserRoles() {
-        // String sql = "SELECT * FROM USER_ROLES";
-        // UserMapper mapper = new UserMapper();
-        // try {
-        // UserDto user = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-        // return user;
-        // } catch (EmptyResultDataAccessException e) {
-        // return null;
-        // }
-        return null;
+        String sql = "SELECT * FROM USER_ROLES";
+        UserRoleMapper mapper = new UserRoleMapper();
+        try {
+            List<UserRoleDto> userRoleDtoList = this.getJdbcTemplate().query(sql, new Object[] {}, mapper);
+            return userRoleDtoList;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     /**
@@ -82,8 +81,14 @@ public class UserRoleDao extends JdbcDaoSupport implements IUserRoleDao {
      */
     @Override
     public List<UserRoleDto> getUserRolesByRole(String role) {
-        // TODO Auto-Generated Method Stub
-        return null;
+        String sql = "SELECT * FROM USER_ROLES WHERE USER_ROLE = ?";
+        UserRoleMapper mapper = new UserRoleMapper();
+        try {
+            List<UserRoleDto> userRoleDtoList = this.getJdbcTemplate().query(sql, new Object[] {role}, mapper);
+            return userRoleDtoList;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     /**
@@ -93,30 +98,15 @@ public class UserRoleDao extends JdbcDaoSupport implements IUserRoleDao {
      */
     @Override
     public UserRoleDto getUserRole(UserRoleDto userRoleDto) {
-        // TODO Auto-Generated Method Stub
-        return null;
-    }
-
-    /**
-     * @see com.hung.dao.IUserRoleDao#addRuleDto(com.hung.dto.UserRoleDto)
-     * @param userRoleDto
-     * @return
-     */
-    @Override
-    public int addRuleDto(UserRoleDto userRoleDto) {
-        // TODO Auto-Generated Method Stub
-        return 0;
-    }
-
-    /**
-     * @see com.hung.dao.IUserRoleDao#updateRuleDto(com.hung.dto.UserRoleDto)
-     * @param userRoleDto
-     * @return
-     */
-    @Override
-    public int updateRuleDto(UserRoleDto userRoleDto) {
-        // TODO Auto-Generated Method Stub
-        return 0;
+        String sql = "SELECT * FROM USER_ROLES WHERE USERNAME = ? AND USER_ROLE = ?";
+        UserRoleMapper mapper = new UserRoleMapper();
+        try {
+            UserRoleDto result = this.getJdbcTemplate().queryForObject(sql,
+                    new Object[] {userRoleDto.getUserName(), userRoleDto.getRoleId()}, mapper);
+            return result;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     /**
@@ -125,7 +115,7 @@ public class UserRoleDao extends JdbcDaoSupport implements IUserRoleDao {
      * @return
      */
     @Override
-    public int deleteRuleDto(String userName) {
+    public int deleteUserRule(String userName) {
         String sql = "DELETE FROM USER_ROLES WHERE USERNAME = ? ";
         Object[] params = new Object[] {userName};
         try {
@@ -148,6 +138,24 @@ public class UserRoleDao extends JdbcDaoSupport implements IUserRoleDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public int addUserRule(UserRoleDto userRoleDto) {
+        // TODO Auto-Generated Method Stub
+        return 0;
+    }
+
+    @Override
+    public int updateUserRule(UserRoleDto userRoleDto) {
+        // TODO Auto-Generated Method Stub
+        return 0;
+    }
+
+    @Override
+    public int deleteUserRule(String userName) {
+        // TODO Auto-Generated Method Stub
+        return 0;
     }
 
 }

@@ -79,9 +79,9 @@ public class UserRoleInterface implements IUserRoleInterface {
     @Override
     public void storeUserRole(UserRoleDto userRoleDto) {
         if (CommonObjectUtils.isNullOrEmpty(useRoleDao.getUserRole(userRoleDto))) {
-            useRoleDao.addRuleDto(userRoleDto);
+            useRoleDao.addUserRule(userRoleDto);
         } else {
-            useRoleDao.updateRuleDto(userRoleDto);
+            useRoleDao.updateUserRule(userRoleDto);
         }
     }
 
