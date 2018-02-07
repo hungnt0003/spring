@@ -28,9 +28,9 @@ public interface IUserRoleDao {
 
     UserRoleDto getUserRole(UserRoleDto userRoleDto);
 
-    int addRuleDto(UserRoleDto userRoleDto);
+    int addUserRule(UserRoleDto userRoleDto);
 
-    int updateRuleDto(UserRoleDto userRoleDto);
+    int updateUserRule(UserRoleDto userRoleDto);
 
-    int deleteRuleDto(String userName);
+    int deleteUserRule(String userName);
 }
