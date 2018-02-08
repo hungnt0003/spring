@@ -19,6 +19,13 @@ public class ProductDetailSettingDto {
 	private String size;
 	private String uTimeStamp;
 
+	public ProductDetailSettingDto() {
+	}
+
+	public ProductDetailSettingDto(String idType) {
+		this.typeId = idType;
+	}
+
 	public String getTypeId() {
 		return typeId;
 	}

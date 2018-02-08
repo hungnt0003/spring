@@ -5,7 +5,7 @@ import java.util.List;
 import com.hung.dto.ProductDetailSettingDto;
 
 public interface IProductDetailSettingDao {
-	
-	public List<ProductDetailSettingDto> getProductDetail();
-	
+
+	public List<ProductDetailSettingDto> getProductDetailSetting();
+
 }

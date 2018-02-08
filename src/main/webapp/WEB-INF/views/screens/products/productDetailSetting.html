@@ -1,0 +1,48 @@
+
+<div class="container">
+
+<title>
+helloo !!!
+</title>
+
+<p>hanava!!!</p>
+<div>
+	<table class="table table-striped" th:if="${not #lists.isEmpty(productdetailsetting)}">
+		<thead>
+			<tr>
+				
+				<th>TypeName</th>
+				<th>Price</th>
+				<th>Status</th>
+				<th>Imagine</th>
+				<th>Color</th>
+				<th>Sale</th>
+				<th>Brand</th>
+				<th>Origin</th>
+				<th>madeIn</th>
+				<th>Size</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="element : ${productdetailsetting}">
+				<!-- <td th:text = "${element.typeId}">
+					<span th:text = "${element.typeId}" ></span>
+				</td> -->
+				
+				<td th:text = "${element.name}"></td>
+				<td><input th:type="hidden" th:text = "${element.price}"></td>
+				<td  th:text = "${element.status}"></td>
+				<td th:text = "${element.img}"></td>
+				<td th:text = "${element.color}"></td>
+				<td th:text = "${element.sale}"></td>
+				<td th:text = "${element.brand}"></td>
+				<td th:text = "${element.origin}"></td>
+				<td th:text = "${element.madeIn}"></td>
+				<td th:text = "${element.size}" ></td>
+			</tr>
+		</tbody>
+	
+	</table>
+</div>
+</body>

@@ -10,6 +10,16 @@ public class ProductTypeDto {
 	private String status;
 	private Date uTimestamp;
 
+	public ProductTypeDto() {
+
+	}
+
+	public ProductTypeDto(String idtype, String idproduct, String status) {
+		this.typeId = idtype;
+		this.productId = idproduct;
+		this.status = status;
+	}
+
 	public String getTypeId() {
 		return typeId;
 	}
